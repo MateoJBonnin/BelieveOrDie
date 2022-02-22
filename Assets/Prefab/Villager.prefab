@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9222492424464210854}
   - component: {fileID: 9222492424464210855}
   - component: {fileID: 2385776603456126511}
+  - component: {fileID: -7332050848764053634}
   m_Layer: 7
   m_Name: Villager
   m_TagString: Untagged
@@ -84,6 +85,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   villager: {fileID: 9222492424464210854}
+--- !u!114 &-7332050848764053634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222492424464210848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f795c3d6508e39944980657edacffff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mf: {fileID: 9222492425219027007}
+  Models:
+  - {fileID: 109501950376098165, guid: 65ebaa441644e344abd21c18eae79fee, type: 3}
+  - {fileID: 3378580692401088804, guid: b64a2d78c812c4942b50461503feb403, type: 3}
 --- !u!1 &9222492425219027000
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +163,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a75b8889247a3b34fafda4eaee3a5cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
