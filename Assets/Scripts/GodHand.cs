@@ -16,12 +16,30 @@ public class GodHand : MonoBehaviour
         {
             this.pointInGround = hit.point;
             this.transform.forward = this.pointInGround - this.transform.position;
-            //Debug.LogError("test");
+        }
+    }
+
+    private void HandTap()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1000f, this.groundLayerMask))
+            {
+                GodTapHandler tapHandler = hit.collider.gameObject.transform.root.GetComponentInChildren<GodTapHandler>();
+                if (tapHandler != null)
+                {
+                    tapHandler.ProcessDeath();
+                }
+            }
         }
     }
 
     private void Update()
     {
+        this.HandTap();
         this.PointTowardsCursor();
     }
 

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq;
 
 public enum Roles
 {
@@ -14,25 +12,29 @@ public enum Roles
 public class Villager : MonoBehaviour
 {
     public Roles rol;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField]
+    private NavMeshAgent agent;
 
     private void Start()
     {
-        var allMarkets = FindObjectsOfType<Market>();
-        if (rol == Roles.Villager)
+        Market[] allMarkets = FindObjectsOfType<Market>();
+        if (this.rol == Roles.Villager)
         {
-            var toGo = allMarkets.OrderBy(x => (x.transform.position - transform.position).magnitude).FirstOrDefault().buyerPosition;
-            agent.SetDestination(toGo.position);
+            Transform toGo = allMarkets.OrderBy(x => (x.transform.position - this.transform.position).magnitude).FirstOrDefault().buyerPosition;
+            this.agent.SetDestination(toGo.position);
         }
-        else if(rol == Roles.Priest)
+        else if (this.rol == Roles.Priest)
         {
-            
         }
-        else if(rol == Roles.Trader)
+        else if (this.rol == Roles.Trader)
         {
-            var toGo = allMarkets.OrderBy(x => (x.transform.position - transform.position).magnitude).FirstOrDefault().traderPosition;
-            agent.SetDestination(toGo.position);
+            Transform toGo = allMarkets.OrderBy(x => (x.transform.position - this.transform.position).magnitude).FirstOrDefault().traderPosition;
+            this.agent.SetDestination(toGo.position);
         }
     }
 
+    public void OnDieHandler()
+    {
+        Destroy(this.agent);
+    }
 }
