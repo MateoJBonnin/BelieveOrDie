@@ -18,7 +18,6 @@ public class GodTapHandler : MonoBehaviour
         this.rb = this.gameObject.AddComponent<Rigidbody>();
         this.hasBeenTapped = true;
         this.PlaceholderRandomDeath();
-        this.villager?.OnDieHandler();
     }
 
     private void PlaceholderRandomDeath()
