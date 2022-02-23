@@ -20,13 +20,14 @@ public class LightingHandler : MonoBehaviour
         {
             if (collider.gameObject.layer == LayerMask.NameToLayer("Villager"))
             {
-                Villager villager = collider.gameObject.transform.root.GetComponentInChildren<Villager>();
-                Rigidbody villRb = villager.transform.root.gameObject.GetComponentInChildren<Rigidbody>();
+                Villager villager = collider.GetComponentInParent<Villager>();
+                Rigidbody villRb = collider.attachedRigidbody;
                 if (villRb == null)
                 {
                     villRb = villager.AddComponent<Rigidbody>();
                 }
 
+                villager.Die();
                 villRb.AddExplosionForce(this.explosionForce, this.transform.position, this.radius, 2f);
                 //TODO: Villager should die here FIX THIS
             }
