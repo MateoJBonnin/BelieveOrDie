@@ -21,6 +21,12 @@ public class LightingHandler : MonoBehaviour
             if (collider.gameObject.layer == LayerMask.NameToLayer("Villager"))
             {
                 Villager villager = collider.GetComponentInParent<Villager>();
+
+                if (villager.isDead)
+                {
+                    return;
+                }
+
                 Rigidbody villRb = collider.attachedRigidbody;
                 if (villRb == null)
                 {
