@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a75b8889247a3b34fafda4eaee3a5cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 5810034538395079002}
   - component: {fileID: 5810034538395079003}
   - component: {fileID: 3990561992564093965}
+  - component: {fileID: -7044753649325457292}
   m_Layer: 7
   m_Name: Trader
   m_TagString: Untagged
@@ -182,3 +183,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   villager: {fileID: 5810034538395079002}
+--- !u!114 &-7044753649325457292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5810034538395079004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f795c3d6508e39944980657edacffff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mf: {fileID: 5810034537606462147}
+  Models:
+  - {fileID: 109501950376098165, guid: 65ebaa441644e344abd21c18eae79fee, type: 3}
+  - {fileID: 3378580692401088804, guid: b64a2d78c812c4942b50461503feb403, type: 3}

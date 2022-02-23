@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TalkSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,8 @@ public enum Roles
 {
     Villager,
     Priest,
-    Trader
+    Trader,
+    Atheist
 }
 
 public class Villager : MonoBehaviour
@@ -70,13 +72,6 @@ public class Villager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            var asd = new ActionTasks();
-            asd.AddAction(new WaitAction(this, 2));
-            OverrideTasks(asd);
-        }
-
         if (this.toDoTasks != null &&
             this.toDoTasks.Count > 0)
         {
@@ -237,6 +232,40 @@ public class WanderAction : Actions
 
     public override void Update()
     {
-         OnComplete?.Invoke();
+         //OnComplete?.Invoke();
+    }
+}
+
+
+public class TalkAction : Actions
+{
+    private Talk other;
+    private Talk villagerTalk;
+    private float targetTime;
+    
+    public TalkAction(Talk me, Talk other, float talkTime)
+    {
+        this.villagerTalk = me;
+        this.vill = me.villager;
+        this.other = other;
+        targetTime = Time.time + talkTime;
+    }
+
+    public override void Execute()
+    {
+        vill.agent.isStopped = true;
+        vill.transform.forward = Vector3.ProjectOnPlane(other.transform.position - vill.transform.position,Vector3.up);
+    }
+    
+    public override void Stop()
+    {
+    }
+
+    public override void Update()
+    {
+        if (targetTime <= Time.time)
+        {
+            OnComplete?.Invoke();
+        }
     }
 }

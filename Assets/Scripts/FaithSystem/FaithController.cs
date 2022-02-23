@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class FaithController : MonoBehaviour
 {
     public Faith faith;
     public GameObject collider;   
@@ -13,18 +13,11 @@ public class Character : MonoBehaviour
     [Header("DEBUG Renderers")]
     public Renderer characterRenderer;
     public Renderer spreadRenderer;
-    //Remove this Sometime.
-    public bool atheist;
     
     public void Awake()
     {
         faith.OnConverted += ConvertToAtheist;
-        
-        //Remove this Sometime.
-        if (atheist)
-        {
-            faith.Add(-100);
-        }
+        SpreadActive(false);
     }
 
     private void ConvertToAtheist()
@@ -45,6 +38,11 @@ public class Character : MonoBehaviour
         spreadFaith.faithPerSecond = faithData.spreadValue;
         spreadFaith.gameObject.layer =  (int) Mathf.Log(faithData.spreadLayer, 2);
         collider.layer = (int) Mathf.Log(faithData.faithLayer, 2);;
+    }
+
+    public void SpreadActive(bool active)
+    {
+        spreadFaith.enabled = active;
     }
 }
 
