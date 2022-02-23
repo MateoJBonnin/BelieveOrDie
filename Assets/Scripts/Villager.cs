@@ -16,36 +16,17 @@ public class Villager : MonoBehaviour
 {
     public Roles rol;
     public NavMeshAgent agent;
+    public Vector3 startPos;
 
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
+    public bool IsAtheist => rol == Roles.Atheist;
 
-    Vector3 startPos;
-
-    private void Start()
+    public void Setup(ActionTasks bt)
     {
         startPos = transform.position;
-        var allMarkets = FindObjectsOfType<Market>();
-        baseTasks = new ActionTasks();
-
-        if (rol == Roles.Villager)
-        {
-            var toGo = allMarkets.OrderBy(x => (x.transform.position - transform.position).magnitude).FirstOrDefault().buyerPosition;
-            baseTasks.AddAction(new GoToAction(this, toGo.position));
-            baseTasks.AddAction(new WaitAction(this, 5));
-            baseTasks.AddAction(new GoToAction(this, startPos));
-        }
-        else if (this.rol == Roles.Priest)
-        {
-        }
-        else if (this.rol == Roles.Trader)
-        {
-            var toGo = allMarkets.OrderBy(x => (x.transform.position - transform.position).magnitude).FirstOrDefault().traderPosition;
-            baseTasks.AddAction(new GoToAction(this, toGo.position));
-            baseTasks.AddAction(new WaitAction(this, 5));
-            baseTasks.AddAction(new GoToAction(this, startPos));
-        }
+        baseTasks = bt;
 
         toDoTasks.Push(baseTasks);
         baseTasks.StartActivities();
