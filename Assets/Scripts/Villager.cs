@@ -33,6 +33,17 @@ public class Villager : MonoBehaviour
         baseTasks.OnEndAllTasks += RestartBaseTasks;
     }
 
+    public void Die()
+    {
+        while (toDoTasks.Any())
+        {
+            ActionTasks tasks = toDoTasks.Pop();
+            tasks.Stop();
+        }
+
+        Destroy(agent);
+    }
+
     public void RestartBaseTasks()
     {
         baseTasks.StartActivities();
