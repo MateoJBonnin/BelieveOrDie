@@ -17,14 +17,9 @@ public class Villager : MonoBehaviour
     public Roles rol;
     public NavMeshAgent agent;
 
-    int currentActivity;
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
-
-    bool doingDailies;
-
-    private List<Actions> newTasks;
 
     Vector3 startPos;
 
@@ -53,6 +48,12 @@ public class Villager : MonoBehaviour
         }
 
         toDoTasks.Push(baseTasks);
+        baseTasks.StartActivities();
+        baseTasks.OnEndAllTasks += RestartBaseTasks;
+    }
+
+    public void RestartBaseTasks()
+    {
         baseTasks.StartActivities();
     }
 
@@ -170,7 +171,7 @@ public class GoToAction : Actions
 
     public override void Update()
     {
-        if(Vector3.SqrMagnitude(vill.transform.position - toPosition) <= .5f)
+        if(Vector3.SqrMagnitude(vill.transform.position - vill.agent.destination) <= .5f)
         {
             OnComplete?.Invoke();
         }
