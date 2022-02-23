@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,23 +17,28 @@ namespace TalkSystem
 
         public MessagePopup messagePopup;
 
+        public Transform other;
+        
         private void Awake()
         {
             openToTalk = false;
             targetTimeToStartTalkingAgain = Random.Range(.1f, 5f);
         }
 
-        public void StartTalking(Talk other, float time, bool showMessages = false)
+        public void StartTalking(Talk other, float time)
         {
+            this.other = other.transform;
             openToTalk = false;
             targetTimeToStartTalkingAgain = Time.time + time + UnityEngine.Random.Range(5,10);
             ActionTasks actionsTasks = new ActionTasks();
             actionsTasks.AddAction(new TalkAction(this,other, time));
             villager.OverrideTasks(actionsTasks);
-            if (showMessages)
-            {
-                messagePopup.ShowMessage(villager.rol == Roles.Atheist, time);
-            }
+            messagePopup.ShowMessage(villager.rol == Roles.Atheist, time);
+        }
+
+        public void StopTalking()
+        {
+            other = null;
         }
 
         private void Update()
@@ -39,12 +46,20 @@ namespace TalkSystem
             if (targetTimeToStartTalkingAgain <= Time.time)
             {
                 openToTalk = true;
+                StopTalking();
             }
+        }
+
+
+        private void OnDrawGizmosSelected()
+        {
+            if (other != null)
+                Gizmos.DrawLine(transform.position, other.position);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.attachedRigidbody.TryGetComponent(out Talk otherTalk))
+            if(openToTalk && other.attachedRigidbody.TryGetComponent(out Talk otherTalk))
             {
                 if (otherTalk.openToTalk && Random.value <= talkProbability)
                 {
@@ -59,10 +74,11 @@ namespace TalkSystem
     {
         public static void StartConversation(Talk a, Talk b, float talkTime)
         {
-            a.StartTalking(b, talkTime, true);
+            a.StartTalking(b, talkTime);
             b.StartTalking(a,talkTime);
         }
     }
+    
     
     
 }
