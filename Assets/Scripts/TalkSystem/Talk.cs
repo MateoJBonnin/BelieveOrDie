@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace TalkSystem
@@ -17,7 +14,9 @@ namespace TalkSystem
 
         public MessagePopup messagePopup;
 
-        public Transform other;
+        private Transform other;
+
+        public SpreadFaith spreadFaith;
         
         private void Awake()
         {
@@ -25,20 +24,27 @@ namespace TalkSystem
             targetTimeToStartTalkingAgain = Random.Range(.1f, 5f);
         }
 
-        public void StartTalking(Talk other, float time)
+        public void StartTalking(Talk other, float time, bool spreadFaith)
         {
             this.other = other.transform;
             openToTalk = false;
             targetTimeToStartTalkingAgain = Time.time + time + UnityEngine.Random.Range(5,10);
             ActionTasks actionsTasks = new ActionTasks();
-            actionsTasks.AddAction(new TalkAction(this,other, time));
+            var talkAction = new TalkAction(this, other, time);
+            talkAction.OnComplete += StopTalking;
+            actionsTasks.AddAction(talkAction);
             villager.OverrideTasks(actionsTasks);
             messagePopup.ShowMessage(villager.rol == Roles.Atheist, time);
+            if (spreadFaith)
+            {
+                this.spreadFaith.Active(true);
+            }
         }
 
         public void StopTalking()
         {
             other = null;
+            this.spreadFaith.Active(false);
         }
 
         private void Update()
@@ -46,7 +52,6 @@ namespace TalkSystem
             if (targetTimeToStartTalkingAgain <= Time.time)
             {
                 openToTalk = true;
-                StopTalking();
             }
         }
 
@@ -74,8 +79,22 @@ namespace TalkSystem
     {
         public static void StartConversation(Talk a, Talk b, float talkTime)
         {
-            a.StartTalking(b, talkTime);
-            b.StartTalking(a,talkTime);
+            bool aAtheist = a.villager.IsAtheist;
+            bool bAtheist = b.villager.IsAtheist;
+            if (aAtheist && !bAtheist)
+            {
+                a.StartTalking(b, talkTime, true);
+                b.StartTalking(a,talkTime, false);
+            }else if (!aAtheist && bAtheist)
+            {
+                a.StartTalking(b, talkTime, false);
+                b.StartTalking(a,talkTime, true);
+            }
+            else
+            {
+                a.StartTalking(b, talkTime, true);
+                b.StartTalking(a,talkTime, true);
+            }
         }
     }
     

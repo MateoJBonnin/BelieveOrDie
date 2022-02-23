@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29227140841719546}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -588,7 +588,7 @@ MonoBehaviour:
   talkProbability: 0.3
   openToTalk: 0
   messagePopup: {fileID: 8017694000828719028}
-  other: {fileID: 0}
+  spreadFaith: {fileID: 8465793825088823077}
 --- !u!1 &9222492425219027000
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class Villager : MonoBehaviour
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
-
+    public bool IsAtheist => rol == Roles.Atheist;
 
     public void Setup(ActionTasks bt)
     {
