@@ -15,7 +15,15 @@ public class GodTapHandler : MonoBehaviour
             return;
         }
 
-        this.rb = this.gameObject.AddComponent<Rigidbody>();
+        if (this.rb == null)
+        {
+            this.rb = this.transform.root.GetComponentInChildren<Rigidbody>();
+            if (this.rb == null)
+            {
+                this.rb = this.gameObject.AddComponent<Rigidbody>();
+            }
+        }
+
         this.hasBeenTapped = true;
         this.PlaceholderRandomDeath();
     }

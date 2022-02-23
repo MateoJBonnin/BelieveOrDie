@@ -77,7 +77,11 @@ public class Villager : MonoBehaviour
             OverrideTasks(asd);
         }
 
-        toDoTasks.Peek().Update();
+        if (this.toDoTasks != null &&
+            this.toDoTasks.Count > 0)
+        {
+            toDoTasks.Peek().Update();
+        }
     }
 }
 
@@ -236,4 +240,3 @@ public class WanderAction : Actions
          OnComplete?.Invoke();
     }
 }
-
