@@ -23,6 +23,8 @@ public class Villager : MonoBehaviour
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
     public bool IsAtheist => rol == Roles.Atheist;
 
+    public bool isDead;
+
     public void Setup(ActionTasks bt)
     {
         startPos = transform.position;
@@ -42,15 +44,21 @@ public class Villager : MonoBehaviour
         }
 
         Destroy(agent);
+
+        isDead = true;
     }
 
     public void RestartBaseTasks()
     {
+        if (isDead) return;
+
         baseTasks.StartActivities();
     }
 
     public void OverrideTasks(ActionTasks newTasks)
     {
+        if (isDead) return;
+
         toDoTasks.Peek().Stop();
         toDoTasks.Push(newTasks);
         toDoTasks.Peek().StartActivities();
@@ -59,6 +67,8 @@ public class Villager : MonoBehaviour
 
     public void ResumeBase()
     {
+        if (isDead) return;
+
         toDoTasks.Pop().OnEndAllTasks -= ResumeBase;
         toDoTasks.Peek().Resume();
     }
