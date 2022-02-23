@@ -4,7 +4,7 @@ using System.Linq;
 using TalkSystem;
 using UnityEngine;
 
-public class RolManager : MonoBehaviour
+public class RoleManager : MonoBehaviour
 {
     public Villager[] allVillagers;
     public Market[] allMarkets;
@@ -17,10 +17,10 @@ public class RolManager : MonoBehaviour
         allMarkets = FindObjectsOfType<Market>();
         allFarms = FindObjectsOfType<Farm>();
 
-        SetupRols();
+        SetupRoles();
     }
 
-    private void SetupRols()
+    private void SetupRoles()
     {
         foreach (var vill in allVillagers)
         {
