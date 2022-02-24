@@ -541,6 +541,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   faithController: {fileID: 6273524593678159893}
   rigidBody: {fileID: 2971365919408792754}
+  talk: {fileID: 4525843504746067140}
   isDead: 0
 --- !u!114 &2385776603456126511
 MonoBehaviour:
@@ -640,6 +641,7 @@ MonoBehaviour:
   openToTalk: 0
   messagePopup: {fileID: 8017694000828719028}
   spreadFaith: {fileID: 8465793825088823077}
+  talkCollider: {fileID: 29227140841719546}
 --- !u!1 &9222492425219027000
 GameObject:
   m_ObjectHideFlags: 0

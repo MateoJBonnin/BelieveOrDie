@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TalkSystem;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public enum Roles
 {
@@ -19,7 +21,9 @@ public class Villager : MonoBehaviour
     public Vector3 startPos;
     public FaithController faithController;
     public Rigidbody rigidBody;
+    public Talk talk;
     
+    public Action<Villager> OnDie;
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
@@ -45,8 +49,13 @@ public class Villager : MonoBehaviour
             tasks.Stop();
         }
 
+        if (faithController)
+        {
+            faithController.SpreadActive(false);
+            talk.Deactivate();
+        }
+        OnDie?.Invoke(this);
         Destroy(agent);
-
         isDead = true;
     }
 

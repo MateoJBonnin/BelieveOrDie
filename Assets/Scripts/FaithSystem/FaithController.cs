@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FaithController : MonoBehaviour
@@ -14,6 +15,9 @@ public class FaithController : MonoBehaviour
     [Header("DEBUG Renderers")]
     public Renderer characterRenderer;
     public Renderer spreadRenderer;
+
+
+    public Action OnConvertedToAtheist;
     
     public void Awake()
     {
@@ -26,6 +30,7 @@ public class FaithController : MonoBehaviour
         villager.rol = Roles.Atheist;
         faith.OnConverted -= ConvertToAtheist;
         Convert(atheistData);
+        OnConvertedToAtheist?.Invoke();
     }
     
     private void ConvertToCatholic()

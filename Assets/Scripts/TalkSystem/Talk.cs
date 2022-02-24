@@ -17,7 +17,9 @@ namespace TalkSystem
         private Transform other;
 
         public SpreadFaith spreadFaith;
-        
+
+        public GameObject talkCollider;
+
         private void Awake()
         {
             openToTalk = false;
@@ -28,7 +30,7 @@ namespace TalkSystem
         {
             this.other = other.transform;
             openToTalk = false;
-            targetTimeToStartTalkingAgain = Time.time + time + UnityEngine.Random.Range(5,10);
+            targetTimeToStartTalkingAgain = Time.time + time + UnityEngine.Random.Range(5, 10);
             ActionTasks actionsTasks = new ActionTasks();
             var talkAction = new TalkAction(this, other, time);
             talkAction.OnComplete += StopTalking;
@@ -55,6 +57,12 @@ namespace TalkSystem
             }
         }
 
+        public void Deactivate()
+        {
+            talkCollider.SetActive(false);
+            enabled = false;
+            StopTalking();
+        }
 
         private void OnDrawGizmosSelected()
         {
