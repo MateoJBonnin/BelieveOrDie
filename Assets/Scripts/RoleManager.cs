@@ -6,18 +6,32 @@ using UnityEngine;
 
 public class RoleManager : MonoBehaviour
 {
-    public Villager[] allVillagers;
+    
+    public Villager[] allVillagersAndTraders;
+    public Villager[] onlyVillager;
     public Market[] allMarkets;
     public Farm[] allFarms;
 
-
+    public float atheismPercentage = .15f;
     private void Start()
     {
-        allVillagers = FindObjectsOfType<Villager>();
+        allVillagersAndTraders = FindObjectsOfType<Villager>();
+        onlyVillager = allVillagersAndTraders.Where(villager => villager.rol == Roles.Villager).ToArray();
         allMarkets = FindObjectsOfType<Market>();
         allFarms = FindObjectsOfType<Farm>();
 
         SetupRoles();
+        CreateAtheists();
+    }
+
+    private void CreateAtheists()
+    {
+        float atheistCount = allVillagersAndTraders.Length * atheismPercentage;
+        for (int i = 0; i < atheistCount; i++)
+        {
+            var a = onlyVillager.GetRandom();
+            a.faithController.ConvertToAtheist();
+        }
     }
 
     private void SetupRoles()
@@ -25,12 +39,12 @@ public class RoleManager : MonoBehaviour
         float current = 0;
 
         float tradersCount = (float)allMarkets.Length;
-        float WandererCount = (float)allVillagers.Length * 0.1f;
-        float BuyerCount = (float)allVillagers.Length * 0.3f;
+        float WandererCount = (float)allVillagersAndTraders.Length * 0.1f;
+        float BuyerCount = (float)allVillagersAndTraders.Length * 0.3f;
 
-        for (int i = 0; i < allVillagers.Length; i++)
+        for (int i = 0; i < allVillagersAndTraders.Length; i++)
         {
-            Villager vill = allVillagers[i];
+            Villager vill = allVillagersAndTraders[i];
             ActionTasks baseTasks = new ActionTasks();
 
             if (i < tradersCount)
@@ -60,5 +74,16 @@ public class RoleManager : MonoBehaviour
         baseTasks.AddAction(new WanderAction(vill, Random.Range(3,5) , 10, Random.Range(1, 5)));
 
         return baseTasks;
+    }
+}
+
+
+public static class Extensions
+{
+    public static T GetRandom<T>(this T[] objs)
+    {
+        var index = Random.Range(0, objs.Length);
+        T r = objs[index]; 
+        return r;
     }
 }

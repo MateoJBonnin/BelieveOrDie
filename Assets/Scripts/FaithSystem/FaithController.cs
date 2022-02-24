@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FaithController : MonoBehaviour
 {
+    public Villager villager;
     public Faith faith;
     public GameObject collider;   
     public SpreadFaith spreadFaith;
@@ -20,19 +21,22 @@ public class FaithController : MonoBehaviour
         SpreadActive(false);
     }
 
-    private void ConvertToAtheist()
+    public void ConvertToAtheist()
     {
+        villager.rol = Roles.Atheist;
         faith.OnConverted -= ConvertToAtheist;
         Convert(atheistData);
     }
     
     private void ConvertToCatholic()
     {
+        villager.rol = Roles.Villager;
         Convert(catholicData);
     }
 
     private void Convert(FaithData faithData)
     {
+        
         characterRenderer.material = faithData.characterMaterial;
         spreadRenderer.material = faithData.spreadMaterial;
         spreadFaith.faithPerSecond = faithData.spreadValue;

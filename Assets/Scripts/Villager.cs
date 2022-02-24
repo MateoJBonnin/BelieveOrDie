@@ -17,7 +17,9 @@ public class Villager : MonoBehaviour
     public Roles rol;
     public NavMeshAgent agent;
     public Vector3 startPos;
-
+    public FaithController faithController;
+    public Rigidbody rigidBody;
+    
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
@@ -256,12 +258,16 @@ public class TalkAction : Actions
 
     public override void Execute()
     {
-        vill.agent.isStopped = true;
+        vill.rigidBody.velocity = Vector3.zero;
+        vill.rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        Vector3 deltaPos = other.transform.position - vill.transform.position;
+        vill.agent.SetDestination(vill.transform.position + deltaPos * .5f);
         vill.transform.forward = Vector3.ProjectOnPlane(other.transform.position - vill.transform.position,Vector3.up);
     }
     
     public override void Stop()
     {
+        vill.rigidBody.constraints = RigidbodyConstraints.None;
     }
 
     public override void Update()
@@ -269,6 +275,7 @@ public class TalkAction : Actions
         if (targetTime <= Time.time)
         {
             OnComplete?.Invoke();
+            vill.rigidBody.constraints = RigidbodyConstraints.None;
         }
     }
 }
