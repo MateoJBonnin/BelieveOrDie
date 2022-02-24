@@ -6977,10 +6977,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 100
   zSize: 100
-  ySize: 15
-  sensitivity: 25
-  scrollSensitivity: 300
-  dragSensitivity: 30
+  ySize: 50
+  sensitivity: 0.5
+  scrollSensitivity: 15
+  dragSensitivity: 0.3
+  zoomInDistance: 50
 --- !u!1001 &332241060
 PrefabInstance:
   m_ObjectHideFlags: 0
