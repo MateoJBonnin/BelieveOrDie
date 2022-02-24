@@ -33,6 +33,7 @@ public class LightingHandler : MonoBehaviour
                     villRb = villager.AddComponent<Rigidbody>();
                 }
 
+                villRb.isKinematic = false;
                 villager.Die();
                 villRb.AddExplosionForce(this.explosionForce, this.transform.position, this.radius, 2f);
                 //TODO: Villager should die here FIX THIS

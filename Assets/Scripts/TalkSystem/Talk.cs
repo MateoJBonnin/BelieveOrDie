@@ -61,6 +61,7 @@ namespace TalkSystem
         {
             talkCollider.SetActive(false);
             enabled = false;
+            messagePopup.Deactivate();
             StopTalking();
         }
 

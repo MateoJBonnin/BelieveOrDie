@@ -39,6 +39,15 @@ public class MessagePopup : MonoBehaviour
         randomMessagesCoroutine = StartCoroutine(SpawnRandomMessages(messages));
     }
 
+    public void Deactivate()
+    {
+        if (randomMessagesCoroutine != null)
+        {
+            StopCoroutine(randomMessagesCoroutine);  
+        }
+        renderer.enabled = false;
+    }
+    
     private IEnumerator SpawnRandomMessages(List<Material> messages)
     {
         Vector3 scale = renderer.transform.localScale;
