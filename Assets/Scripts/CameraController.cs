@@ -66,22 +66,32 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        this.currentTargetDragPosition = Vector3.Lerp(this.startDragPosition, this.maxDragPosition, this.currentScrollZoom);
+        this.currentDragPosition = Vector3.Lerp(this.currentDragPosition, this.currentTargetDragPosition, Time.deltaTime * 20f);
+        this.currentMovementOffset = Vector3.Lerp(this.currentMovementOffset, this.targetMovementOffset * sensitivity, Time.deltaTime * 15f);
+        Vector3 movementDiff = (currentDragPosition + this.currentMovementOffset) - this.transform.position;
+        transform.position = Vector3.Lerp(transform.position, transform.position + movementDiff, Time.deltaTime * 5f);
+
         if (transform.position.x >= startPosition.x + xSize)
         {
             transform.position = new Vector3(startPosition.x + xSize, transform.position.y, transform.position.z);
+            targetMovementOffset.x = Mathf.Lerp(targetMovementOffset.x, 0, Time.deltaTime * 1);
         }
         else if (transform.position.x < startPosition.x - xSize)
         {
             transform.position = new Vector3(startPosition.x - xSize, transform.position.y, transform.position.z);
+            targetMovementOffset.x = Mathf.Lerp(targetMovementOffset.x, 0, Time.deltaTime * 1);
         }
 
         if (transform.position.z >= startPosition.z + zSize)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, startPosition.z + zSize);
+            targetMovementOffset.z = Mathf.Lerp(targetMovementOffset.z, 0, Time.deltaTime * 1);
         }
         else if (transform.position.z < startPosition.z - zSize)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, startPosition.z - zSize);
+            targetMovementOffset.z = Mathf.Lerp(targetMovementOffset.z, 0, Time.deltaTime * 1);
         }
 
         if (transform.position.y >= startPosition.y + ySize)
@@ -93,11 +103,7 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, startPosition.y - ySize, transform.position.z);
         }
 
-        this.currentTargetDragPosition = Vector3.Lerp(this.startDragPosition, this.maxDragPosition, this.currentScrollZoom);
-        this.currentDragPosition = Vector3.Lerp(this.currentDragPosition, this.currentTargetDragPosition, Time.deltaTime * 20f);
-        this.currentMovementOffset = Vector3.Lerp(this.currentMovementOffset, this.targetMovementOffset * sensitivity, Time.deltaTime * 15f);
-        Vector3 movementDiff = (currentDragPosition + this.currentMovementOffset) - this.transform.position;
-        transform.position = Vector3.Lerp(transform.position, transform.position + movementDiff, Time.deltaTime * 5f);
+      
     }
 
     private void OnDrawGizmos()
