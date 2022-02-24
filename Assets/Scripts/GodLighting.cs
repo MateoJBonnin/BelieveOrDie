@@ -6,7 +6,7 @@ public class GodLighting : MonoBehaviour
     public event Action OnHitGround;
 
     [SerializeField]
-    private ParticleSystem lightingBaseParticlePrefab;
+    private LightingBaseParticleHandler lightingBaseParticlePrefab;
     [SerializeField]
     private ParticleSystem lightingMainParticle;
     [SerializeField]
@@ -14,14 +14,17 @@ public class GodLighting : MonoBehaviour
     [SerializeField]
     private float groundDistance;
 
+    private LightingBaseParticleHandler baseLightingPS;
     private Vector3 targetPosition;
+    private Vector3 targetNormal;
     private bool stop;
     private bool ended;
 
-    public void Trigger(Vector3 position)
+    public void Trigger(Vector3 position, Vector3 normal)
     {
         this.stop = false;
         this.targetPosition = position;
+        this.targetNormal = normal;
         this.lightingMainParticle.Play();
     }
 
@@ -48,7 +51,6 @@ public class GodLighting : MonoBehaviour
         ParticleSystem.NoiseModule noiseModule = this.lightingMainParticle.noise;
         ParticleSystem.VelocityOverLifetimeModule velocityModule = this.lightingMainParticle.velocityOverLifetime;
 
-
         if (c <= 0)
         {
             return;
@@ -70,8 +72,9 @@ public class GodLighting : MonoBehaviour
                 if (guideParticle.position.y <= this.targetPosition.y + 0.1f)
                 {
                     this.lightingMainParticle.Stop();
-                    ParticleSystem baseParticle = Instantiate(this.lightingBaseParticlePrefab);
-                    baseParticle.transform.position = this.targetPosition;
+                    this.baseLightingPS = Instantiate(this.lightingBaseParticlePrefab);
+                    this.baseLightingPS.transform.position = this.targetPosition;
+                    this.baseLightingPS.transform.forward = -this.targetNormal;
                     LightingHandler lightingHandler = Instantiate(this.lightingHandlerPrefab);
                     lightingHandler.transform.position = this.targetPosition;
                     this.OnHitGround?.Invoke();

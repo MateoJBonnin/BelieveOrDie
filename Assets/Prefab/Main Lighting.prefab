@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548f6899331aa504bb4f3963ae825c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightingBaseParticlePrefab: {fileID: 3222326529891497221, guid: 9e27888c84ccdf64c9b7d23729e9db3b, type: 3}
+  lightingBaseParticlePrefab: {fileID: 4801194246050863401, guid: 9e27888c84ccdf64c9b7d23729e9db3b, type: 3}
   lightingMainParticle: {fileID: 3222326529891497221}
   lightingHandlerPrefab: {fileID: 8198067684151627326, guid: aed39113ee8aed34b9fa8246f73497ee, type: 3}
   groundDistance: 5

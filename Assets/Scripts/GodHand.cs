@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GodHand : MonoBehaviour
 {
-    public event Action<Vector3> OnTap;
+    public event Action<Vector3, Vector3> OnTap;
 
     [SerializeField]
     private LayerMask groundLayerMask;
@@ -37,7 +37,7 @@ public class GodHand : MonoBehaviour
                     tapHandler.ProcessDeath();
                 }
 
-                this.OnTap?.Invoke(hit.point);
+                this.OnTap?.Invoke(hit.point, hit.normal);
             }
         }
     }
