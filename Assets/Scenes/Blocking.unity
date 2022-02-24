@@ -8737,6 +8737,7 @@ MonoBehaviour:
   godLightingPrefab: {fileID: 3222326529891497223, guid: c6d0f7c7fe05e0b41ae5ddb18725b562, type: 3}
   rayHeight: 75
   godHand: {fileID: 1856013733}
+  cooldown: 0.5
 --- !u!4 &424122813
 Transform:
   m_ObjectHideFlags: 0

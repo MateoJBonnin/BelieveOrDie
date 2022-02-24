@@ -10,6 +10,10 @@ public class LightingTap : MonoBehaviour
     private float rayHeight;
     [SerializeField]
     private GodHand godHand;
+    [SerializeField]
+    private float cooldown;
+
+    private float nextAvailableTime;
 
     private void Start()
     {
@@ -18,7 +22,11 @@ public class LightingTap : MonoBehaviour
 
     private void OnGodTapHandler(Vector3 position)
     {
-        this.SummonLighting(position);
+        if (this.nextAvailableTime < Time.time)
+        {
+            this.SummonLighting(position);
+            this.nextAvailableTime = Time.time + this.cooldown;
+        }
     }
 
     private void SummonLighting(Vector3 position)
