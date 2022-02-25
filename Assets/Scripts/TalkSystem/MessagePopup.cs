@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Sequence = DG.Tweening.Sequence;
 
 public class MessagePopup : MonoBehaviour
 {
@@ -12,7 +16,35 @@ public class MessagePopup : MonoBehaviour
     private float targetTime;
     
     private Coroutine randomMessagesCoroutine;
+
+    private bool show = false;
+
+    private Vector3 baseScale;
     
+    private void Awake()
+    {
+        baseScale = transform.localScale;
+        ShowMessagesManager.instance.OnShowChanged += OnShowChanged;
+    }
+
+    private void OnShowChanged(bool show)
+    {
+        this.show = show;
+        if (show)
+        {
+            renderer.enabled = true;
+            renderer.transform.DOScale(baseScale, .5f);
+        }
+        else
+        {
+            renderer.transform.DOScale(Vector3.zero, .5f).OnComplete(() => renderer.enabled = false);
+        }
+    }
+
+    private void OnDisable()
+    {
+        renderer.enabled = false;
+    }
 
     private void Update()
     {
@@ -45,21 +77,21 @@ public class MessagePopup : MonoBehaviour
         {
             StopCoroutine(randomMessagesCoroutine);  
         }
-        renderer.enabled = false;
+
+        Activate(false);
     }
     
     private IEnumerator SpawnRandomMessages(List<Material> messages)
     {
         Vector3 scale = renderer.transform.localScale;
         
-        
         while (true)
         {
             Material material = messages[Random.Range(0, messages.Count)];
             renderer.material = material;
             Sequence mySequence = DOTween.Sequence();
-            mySequence.Append(renderer.transform.DOScale(Vector3.zero, .1f));
-            mySequence.Append(renderer.transform.DOScale(scale, .2f));
+            mySequence.Append(renderer.transform.DOScale(Vector3.zero, .25f).OnComplete(() => { renderer.enabled = show; }));
+            mySequence.Append(renderer.transform.DOScale(scale, .4f).OnComplete(() => { renderer.enabled = show; }));
             mySequence.Play();
             yield return new WaitForSeconds(Random.Range(1, 2));
         }
@@ -68,5 +100,6 @@ public class MessagePopup : MonoBehaviour
     private void Activate(bool active)
     {
         gameObject.SetActive(active);
+        renderer.enabled = show;
     }
 }
