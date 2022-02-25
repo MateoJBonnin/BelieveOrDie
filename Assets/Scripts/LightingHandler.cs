@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class LightingHandler : MonoBehaviour
@@ -15,29 +16,26 @@ public class LightingHandler : MonoBehaviour
 
     public void CreateExplosionZone()
     {
-        Collider[] sphereCastColliders = Physics.OverlapSphere(this.transform.position, this.radius);
+        Collider[] sphereCastColliders = Physics.OverlapSphere(this.transform.position, this.radius,1<< LayerMask.NameToLayer("Villager"));
+        
         foreach (Collider collider in sphereCastColliders)
         {
-            if (collider.gameObject.layer == LayerMask.NameToLayer("Villager"))
+            Villager villager = collider.GetComponentInParent<Villager>();
+
+            if (villager.isDead)
             {
-                Villager villager = collider.GetComponentInParent<Villager>();
-
-                if (villager.isDead)
-                {
-                    return;
-                }
-
-                Rigidbody villRb = collider.attachedRigidbody;
-                if (villRb == null)
-                {
-                    villRb = villager.AddComponent<Rigidbody>();
-                }
-
-                villRb.isKinematic = false;
-                villager.Die();
-                villRb.AddExplosionForce(this.explosionForce, this.transform.position, this.radius, 2f);
-                //TODO: Villager should die here FIX THIS
+                continue;
             }
+
+            Rigidbody villRb = collider.attachedRigidbody ;
+            if (villRb == null)
+            {
+                villRb = villager.AddComponent<Rigidbody>();
+            }
+
+            villRb.isKinematic = false;
+            villager.Die();
+            villRb.AddExplosionForce(this.explosionForce, this.transform.position, this.radius, 2f);
         }
     }
 }
