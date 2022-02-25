@@ -280,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 7418169960268948465}
   m_LocalRotation: {x: -0.0000000058714815, y: -0.4999996, z: 0.000000010169716, w: 0.8660257}
   m_LocalPosition: {x: 0, y: 2.479, z: 0}
-  m_LocalScale: {x: 0.8186349, y: 0.8186349, z: 0.8186349}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9222492424464210849}
@@ -301,7 +301,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7418169960268948465}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -522,7 +522,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &9222492424464210854
 MonoBehaviour:
@@ -542,6 +542,10 @@ MonoBehaviour:
   faithController: {fileID: 6273524593678159893}
   rigidBody: {fileID: 2971365919408792754}
   talk: {fileID: 4525843504746067140}
+  colliders:
+  - {fileID: 4525286553298005076}
+  - {fileID: 5311066168029844829}
+  - {fileID: 240836538}
   isDead: 0
 --- !u!114 &2385776603456126511
 MonoBehaviour:

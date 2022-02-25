@@ -32,6 +32,8 @@ public class GodTapHandler : MonoBehaviour
     {
         Vector2 randomCircle = Random.insideUnitCircle;
         Vector3 force = new Vector3(randomCircle.x, 0, randomCircle.y) * 15f;
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.None;
         force.y = Random.Range(0.1f, 1f) * 5f;
         this.rb.AddForce(force, ForceMode.VelocityChange);
     }

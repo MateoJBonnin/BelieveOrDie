@@ -27,6 +27,8 @@ public class Villager : MonoBehaviour
     private ActionTasks baseTasks;
 
     Stack<ActionTasks> toDoTasks = new Stack<ActionTasks>();
+
+    public List<Collider> colliders;
     public bool IsAtheist => rol == Roles.Atheist;
 
     public bool isDead;
@@ -52,8 +54,11 @@ public class Villager : MonoBehaviour
         if (faithController)
         {
             faithController.SpreadActive(false);
+            rigidBody.constraints = RigidbodyConstraints.None;
             talk.Deactivate();
         }
+
+        colliders.ForEach(c=> c.enabled = false);
         OnDie?.Invoke(this);
         Destroy(agent);
         isDead = true;

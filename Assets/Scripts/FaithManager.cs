@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,9 +14,11 @@ public class FaithManager : MonoBehaviour
 
     public Slider slider;
 
-    private int totalPob;
-    private int atheist;
+    public int totalPob;
+    public int atheist;
 
+    public float atheismPercentage;
+    public Action<float> OnAtheismChanged;
     public void Start()
     {
         totalPob = faiths.Count;
@@ -42,7 +45,9 @@ public class FaithManager : MonoBehaviour
 
     private void CheckFaith()
     {
-        slider.value = (1 - (atheist / (float)totalPob));
+        atheismPercentage = atheist / (float) totalPob;
+        OnAtheismChanged?.Invoke(atheismPercentage);
+        slider.value = (1 - atheismPercentage);
     }
 
 
