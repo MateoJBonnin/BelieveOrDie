@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using TalkSystem;
 using UnityEngine;
 using UnityEngine.AI;
@@ -62,6 +63,11 @@ public class Villager : MonoBehaviour
         OnDie?.Invoke(this);
         Destroy(agent);
         isDead = true;
+        
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(2);
+        mySequence.Append(transform.DOScale(Vector3.zero, 1));
+        mySequence.OnComplete(() => Destroy(gameObject));
     }
 
     public void RestartBaseTasks()
