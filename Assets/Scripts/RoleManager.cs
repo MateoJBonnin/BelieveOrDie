@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class RoleManager : MonoBehaviour
 {
-    
-    public Villager[] allVillagersAndTraders;
-    public Villager[] onlyVillager;
+    public Villager[] allVillager;
     public Market[] allMarkets;
     public Farm[] allFarms;
+    public Path[] allPaths;
+
 
     public float atheismPercentage = .15f;
     private void Start()
     {
-        allVillagersAndTraders = FindObjectsOfType<Villager>();
-        onlyVillager = allVillagersAndTraders.Where(villager => villager.rol == Roles.Villager).ToArray();
+        allVillager = FindObjectsOfType<Villager>();
         allMarkets = FindObjectsOfType<Market>();
         allFarms = FindObjectsOfType<Farm>();
+        allPaths = FindObjectsOfType<Path>();
 
         SetupRoles();
         CreateAtheists();
@@ -26,55 +26,54 @@ public class RoleManager : MonoBehaviour
 
     private void CreateAtheists()
     {
-        float atheistCount = allVillagersAndTraders.Length * atheismPercentage;
+        float atheistCount = allVillager.Length * atheismPercentage;
         for (int i = 0; i < atheistCount; i++)
         {
-            var a = onlyVillager.GetRandom();
+            var a = allVillager.GetRandom();
             a.faithController.ConvertToAtheist();
         }
     }
 
+    private void Update()
+    {
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Time.timeScale *= 6;
+        //}
+        //if(Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    Time.timeScale = 1;
+        //}
+    }
+
     private void SetupRoles()
     {
-        float current = 0;
+        int totalVillCount = allVillager.Length;
 
-        float tradersCount = (float)allMarkets.Length;
-        float WandererCount = (float)allVillagersAndTraders.Length * 0.1f;
-        float BuyerCount = (float)allVillagersAndTraders.Length * 0.3f;
+        float normalVill = totalVillCount * 0.7f;
+        float farmersPercent = totalVillCount * 0.2f;
+        float lumberjackPercent = totalVillCount * 0.1f;
 
-        for (int i = 0; i < allVillagersAndTraders.Length; i++)
+        while(totalVillCount > 0)
         {
-            Villager vill = allVillagersAndTraders[i];
+            Villager vill = allVillager[totalVillCount - 1];
             ActionTasks baseTasks = new ActionTasks();
 
-            if (i < tradersCount)
-            {
-                var toGo = allMarkets[i].traderPosition;
-                baseTasks.AddAction(new GoToAction(vill, toGo.position));
-                baseTasks.AddAction(new WaitAction(vill, 5));
-                baseTasks.AddAction(new GoToAction(vill, vill.startPos));
-            }
-            else
-            {
-                var toGo = allMarkets.OrderBy(x => (x.transform.position - vill.transform.position).magnitude).FirstOrDefault().buyerPosition;
-                baseTasks.AddAction(new GoToAction(vill, toGo.position));
-                baseTasks.AddAction(new WaitAction(vill, 5));
-                baseTasks.AddAction(new GoToAction(vill, vill.startPos));
-            }
+            
+            var toGo = allMarkets.OrderBy(x => (x.transform.position - vill.transform.position).magnitude).FirstOrDefault().buyerPosition;
+            baseTasks.AddAction(new GoToAction(vill, toGo.position));
+            baseTasks.AddAction(new WaitAction(vill, 5));
+            baseTasks.AddAction(new WanderAction(vill, Random.Range(3, 5), 10, Random.Range(1, 5)));
+            baseTasks.AddAction(new PathWalking(vill, allPaths[Random.Range(0, allPaths.Length)], Random.Range(5,20)));
+
 
             vill.Setup(baseTasks);
-            current++;
+
+            totalVillCount--;
         }
+
     }
 
-    private ActionTasks WanderTasks(Villager vill)
-    {
-        ActionTasks baseTasks = new ActionTasks();
-
-        baseTasks.AddAction(new WanderAction(vill, Random.Range(3,5) , 10, Random.Range(1, 5)));
-
-        return baseTasks;
-    }
 }
 
 

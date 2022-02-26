@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Farm : MonoBehaviour
+public class Path : MonoBehaviour
 {
-    public Transform[] workingSpaces;
+    public Transform[] waypoints;
+
     private void Reset()
     {
-        workingSpaces = GetComponentsInChildren<Transform>().Where(x => x != transform).ToArray();
+        waypoints = GetComponentsInChildren<Transform>().Where(x => x != transform).ToArray();
         int aux = 0;
-        foreach (var item in workingSpaces)
+        foreach (var item in waypoints)
         {
             item.name = item.name + aux++;
+           
         }
     }
 }

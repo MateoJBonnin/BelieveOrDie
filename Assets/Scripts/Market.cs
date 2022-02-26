@@ -5,6 +5,5 @@ using UnityEngine;
 public class Market : MonoBehaviour
 {
     public bool IsClose;
-    public Transform traderPosition;
     public Transform buyerPosition;
 }

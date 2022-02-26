@@ -40,7 +40,7 @@ public class Villager : MonoBehaviour
         baseTasks = bt;
 
         toDoTasks.Push(baseTasks);
-        baseTasks.StartActivities();
+        baseTasks.StartActivities(true);
         baseTasks.OnEndAllTasks += RestartBaseTasks;
     }
 
@@ -74,7 +74,7 @@ public class Villager : MonoBehaviour
     {
         if (isDead) return;
 
-        baseTasks.StartActivities();
+        baseTasks.StartActivities(true);
     }
 
     public void OverrideTasks(ActionTasks newTasks)
@@ -118,6 +118,11 @@ public class ActionTasks
         actions.Add(action);
     }
 
+    public void ShuffleList()
+    {
+
+    }
+
     public void Stop()
     {
         actions[currentAction].Stop();
@@ -134,9 +139,9 @@ public class ActionTasks
         action.Execute();
     }
 
-    public void StartActivities()
+    public void StartActivities(bool randomActivities = false)
     {
-        currentAction = 0;
+        currentAction = randomActivities ? Random.Range(0, actions.Count) : 0;
         actions[currentAction].OnComplete += OnActionComplete;
         actions[currentAction].Execute();
     }
@@ -205,11 +210,13 @@ public class GoToAction : Actions
 public class WaitAction : Actions
 {
     private float targetTime;
+    private float currentWaitingTime;
 
     public WaitAction(Villager vill, float time)
     {
         this.vill = vill;
         targetTime = time;
+        currentWaitingTime = 0;
     }
 
     public override void Execute()
@@ -223,9 +230,10 @@ public class WaitAction : Actions
 
     public override void Update()
     {
-        targetTime -= Time.deltaTime;
-        if (targetTime <= 0)
+        currentWaitingTime += Time.deltaTime;
+        if (currentWaitingTime >= targetTime)
         {
+            currentWaitingTime = 0;
             OnComplete?.Invoke();
         }
     }
@@ -236,6 +244,11 @@ public class WanderAction : Actions
     private float wanderRadius;
     private float wanderTime;
     private float waitTime;
+    private float totalTime;
+
+    bool reach;
+    bool waiting;
+    float currentTimeWaiting;
 
     public WanderAction(Villager vill, float wanderRadius, float wanderTime, float waitTime)
     {
@@ -248,8 +261,12 @@ public class WanderAction : Actions
     public override void Execute()
     {
         vill.agent.isStopped = false;
-        vill.agent.SetDestination(vill.transform.position + Vector3.ProjectOnPlane((Random.insideUnitSphere * wanderRadius), Vector3.up));
+
+        Vector3 toPosition = vill.transform.position + Vector3.ProjectOnPlane((Random.insideUnitSphere * wanderRadius), Vector3.up);
+        NavMesh.SamplePosition(toPosition, out NavMeshHit hit, float.MaxValue, NavMesh.AllAreas);
+        vill.agent.SetDestination(hit.position);
     }
+
     public override void Stop()
     {
         vill.agent.isStopped = true;
@@ -257,7 +274,44 @@ public class WanderAction : Actions
 
     public override void Update()
     {
-         //OnComplete?.Invoke();
+        if (!reach)
+        {
+            reach = Vector3.SqrMagnitude(vill.transform.position - vill.agent.destination) <= .5f;
+        }
+        else
+        {
+            if(!waiting)
+            {
+                OnReach();
+            }
+            else
+            {
+                currentTimeWaiting += Time.deltaTime;
+
+                if(currentTimeWaiting >= waitTime)
+                {
+                    currentTimeWaiting = 0;
+                    Execute();
+                    reach = false;
+                    waiting = false;
+                }
+            }
+        }
+
+        totalTime += Time.deltaTime;
+        if (totalTime >= wanderTime)
+        {
+            reach = false;
+            waiting = false;
+            currentTimeWaiting = 0;
+            totalTime = 0;
+            OnComplete?.Invoke();
+        }
+    }
+
+    private void OnReach()
+    {
+        waiting = true;
     }
 }
 
@@ -294,8 +348,81 @@ public class TalkAction : Actions
     {
         if (targetTime <= Time.time)
         {
-            OnComplete?.Invoke();
             vill.rigidBody.constraints = RigidbodyConstraints.None;
+            OnComplete?.Invoke();
+        }
+    }
+}
+
+public class PathWalking : Actions
+{
+    Path pathToWalk;
+    int currentIndex = -1;
+    int totalWaypoints;
+
+
+    int currentTotalIndex;
+
+    int dir;
+
+    public PathWalking(Villager vill, Path path, int totalWaypoints)
+    {
+        this.vill = vill;
+        pathToWalk = path;
+        currentTotalIndex = this.totalWaypoints = totalWaypoints;
+
+        currentIndex = -1;
+        dir = Random.Range(0, 2) * 2 - 1;
+    }
+
+    public override void Execute()
+    {
+        if(currentIndex < 0)
+        {
+            currentIndex = pathToWalk.waypoints.OrderBy(x => Vector3.Distance(x.transform.position, vill.transform.position)).FirstOrDefault().GetSiblingIndex();
+        }
+
+        vill.agent.isStopped = false;
+
+        Vector3 toPosition = pathToWalk.waypoints[currentIndex].position + Vector3.ProjectOnPlane((Random.insideUnitSphere * 10), Vector3.up);
+        NavMesh.SamplePosition(toPosition, out NavMeshHit hit, float.MaxValue, NavMesh.AllAreas);
+
+        vill.agent.SetDestination(toPosition);
+    }
+    public override void Stop()
+    {
+        vill.agent.isStopped = true;
+    }
+
+    public override void Update()
+    {
+        if (Vector3.SqrMagnitude(vill.transform.position - vill.agent.destination) <= .5f)
+        {
+            currentIndex += dir;
+            if (currentIndex >= pathToWalk.waypoints.Length)
+            {
+                currentIndex = 0;
+            }
+            else if(currentIndex < 0)
+            {
+                currentIndex = pathToWalk.waypoints.Length - 1;
+            }
+
+            currentTotalIndex--;
+            if (currentTotalIndex <= 0)
+            {
+                dir = Random.Range(0, 2) * 2 - 1;
+                currentTotalIndex = totalWaypoints;
+                currentIndex = -1;
+                OnComplete?.Invoke();
+            }
+            else
+            {
+                Vector3 toPosition = pathToWalk.waypoints[currentIndex].position + Vector3.ProjectOnPlane((Random.insideUnitSphere * 10), Vector3.up);
+                NavMesh.SamplePosition(toPosition, out NavMeshHit hit, float.MaxValue, NavMesh.AllAreas);
+
+                vill.agent.SetDestination(toPosition);
+            }
         }
     }
 }
