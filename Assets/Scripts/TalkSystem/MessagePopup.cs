@@ -78,6 +78,8 @@ public class MessagePopup : MonoBehaviour
             StopCoroutine(randomMessagesCoroutine);  
         }
 
+        ShowMessagesManager.instance.OnShowChanged -= OnShowChanged;
+
         Activate(false);
     }
     
