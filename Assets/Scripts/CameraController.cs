@@ -46,24 +46,6 @@ public class CameraController : MonoBehaviour
 
             this.currentScrollZoom += Input.mouseScrollDelta.y * this.scrollSensitivity * Time.deltaTime;
             this.currentScrollZoom = Mathf.Clamp01(this.currentScrollZoom);
-
-            if ((Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width * 0.1f) && targetMovementOffset.x >= startPosition.x - xSize)
-            {
-                this.targetMovementOffset.x -= 1;
-            }
-            else if ((Input.mousePosition.x > Screen.width - Screen.width * 0.1f && Input.mousePosition.x < Screen.width) && targetMovementOffset.x < startPosition.x + xSize)
-            {
-                this.targetMovementOffset.x += 1;
-            }
-
-            if ((Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height * 0.1f) && targetMovementOffset.z >= startPosition.x - zSize)
-            {
-                this.targetMovementOffset.z -= 1;
-            }
-            else if ((Input.mousePosition.y > Screen.height - Screen.height * 0.1f && Input.mousePosition.y < Screen.height) && targetMovementOffset.z < startPosition.x + zSize)
-            {
-                this.targetMovementOffset.z += 1;
-            }
         }
 
         this.currentTargetDragPosition = Vector3.Lerp(this.startDragPosition, this.maxDragPosition, this.currentScrollZoom);
@@ -102,8 +84,6 @@ public class CameraController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, startPosition.y - ySize, transform.position.z);
         }
-
-      
     }
 
     private void OnDrawGizmos()
