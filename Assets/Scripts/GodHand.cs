@@ -10,6 +10,8 @@ public class GodHand : MonoBehaviour
 
     private Vector3 pointInGround;
 
+    public bool InputBlock;
+
     private void PointTowardsCursor()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -24,7 +26,7 @@ public class GodHand : MonoBehaviour
 
     private void HandTap()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!InputBlock && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

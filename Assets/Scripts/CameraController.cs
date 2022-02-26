@@ -120,7 +120,6 @@ public class CameraController : MonoBehaviour
         Gizmos.color = Color.green;
 
         Gizmos.DrawWireCube(transform.position, new Vector3(xSize, ySize, zSize));
-
     }
     
     
