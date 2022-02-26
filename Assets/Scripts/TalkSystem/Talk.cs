@@ -47,6 +47,7 @@ namespace TalkSystem
         {
             other = null;
             this.spreadFaith.Active(false);
+            messagePopup.Stop();
         }
 
         private void Update()

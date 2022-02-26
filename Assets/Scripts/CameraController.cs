@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -24,6 +23,22 @@ public class CameraController : MonoBehaviour
     Vector3 lastMousePosition;
     private float currentScrollZoom;
 
+    public bool canZoom = true;
+    public bool canDrag = true;
+    public bool canMove = true;
+
+
+    public static bool CanShowMessages;
+
+    public float showMessagesYDistance = 25;
+    
+    public float movementAccumulated;
+    public float dragAccumulated;
+    
+    public Action<Vector3> OnMove;
+    public Action<Vector3> OnDrag;
+    public Action<float>OnZoom;
+    
     private void Start()
     {
         startPosition = transform.position;
@@ -34,18 +49,32 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        CanShowMessages = transform.position.y < showMessagesYDistance;
+        
         if (Input.GetKey(KeyCode.Mouse2))
         {
-            targetMovementOffset -= new Vector3(Input.mousePosition.x - lastMousePosition.x, 0, Input.mousePosition.y - lastMousePosition.y) * dragSensitivity;
-            lastMousePosition = Input.mousePosition;
+            if (canDrag)
+            {
+                Vector3 direction = new Vector3(Input.mousePosition.x - lastMousePosition.x, 0, Input.mousePosition.y - lastMousePosition.y);
+                targetMovementOffset -= new Vector3(Input.mousePosition.x - lastMousePosition.x, 0, Input.mousePosition.y - lastMousePosition.y) * dragSensitivity;
+                lastMousePosition = Input.mousePosition;
+                dragAccumulated += direction.sqrMagnitude;
+            }
         }
         else
         {
             lastMousePosition = Input.mousePosition;
-            this.targetMovementOffset += new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-
-            this.currentScrollZoom += Input.mouseScrollDelta.y * this.scrollSensitivity * Time.deltaTime;
-            this.currentScrollZoom = Mathf.Clamp01(this.currentScrollZoom);
+            if (canMove)
+            {
+                Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+                this.targetMovementOffset += direction;
+                movementAccumulated += direction.sqrMagnitude;
+            }
+            if (canZoom)
+            {
+                this.currentScrollZoom += Input.mouseScrollDelta.y * this.scrollSensitivity * Time.deltaTime;
+                this.currentScrollZoom = Mathf.Clamp01(this.currentScrollZoom);    
+            }
         }
 
         this.currentTargetDragPosition = Vector3.Lerp(this.startDragPosition, this.maxDragPosition, this.currentScrollZoom);
@@ -92,5 +121,21 @@ public class CameraController : MonoBehaviour
 
         Gizmos.DrawWireCube(transform.position, new Vector3(xSize, ySize, zSize));
 
+    }
+    
+    
+    public void SetMovementActivate(bool active)
+    {
+        canMove = active;
+    }
+        
+    public void SetDragActivate(bool active)
+    {
+        canDrag = active;
+    }
+
+    public void SetZoomActivate(bool active)
+    {
+        canZoom = active;
     }
 }

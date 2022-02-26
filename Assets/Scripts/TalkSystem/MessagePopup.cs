@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
@@ -20,30 +18,10 @@ public class MessagePopup : MonoBehaviour
     private bool show = false;
 
     private Vector3 baseScale;
-    
+
     private void Awake()
     {
         baseScale = transform.localScale;
-        ShowMessagesManager.instance.OnShowChanged += OnShowChanged;
-    }
-
-    private void OnShowChanged(bool show)
-    {
-        this.show = show;
-        if (show)
-        {
-            renderer.enabled = true;
-            renderer.transform.DOScale(baseScale, .5f);
-        }
-        else
-        {
-            renderer.transform.DOScale(Vector3.zero, .5f).OnComplete(() => renderer.enabled = false);
-        }
-    }
-
-    private void OnDisable()
-    {
-        renderer.enabled = false;
     }
 
     private void Update()
@@ -55,6 +33,7 @@ public class MessagePopup : MonoBehaviour
             Activate(false);
             StopCoroutine(randomMessagesCoroutine);
         }
+        
     }
 
     public void ShowMessage(bool IsAtheist, float time)
@@ -78,10 +57,10 @@ public class MessagePopup : MonoBehaviour
             StopCoroutine(randomMessagesCoroutine);  
         }
 
-        ShowMessagesManager.instance.OnShowChanged -= OnShowChanged;
-
         Activate(false);
     }
+
+    private Sequence mySequence;
     
     private IEnumerator SpawnRandomMessages(List<Material> messages)
     {
@@ -89,11 +68,12 @@ public class MessagePopup : MonoBehaviour
         
         while (true)
         {
+            renderer.enabled = CameraController.CanShowMessages;
             Material material = messages[Random.Range(0, messages.Count)];
             renderer.material = material;
-            Sequence mySequence = DOTween.Sequence();
-            mySequence.Append(renderer.transform.DOScale(Vector3.zero, .25f).OnComplete(() => { renderer.enabled = show; }));
-            mySequence.Append(renderer.transform.DOScale(scale, .4f).OnComplete(() => { renderer.enabled = show; }));
+            mySequence = DOTween.Sequence();
+            mySequence.Append(renderer.transform.DOScale(Vector3.zero, .25f));
+            mySequence.Append(renderer.transform.DOScale(scale, .4f));
             mySequence.Play();
             yield return new WaitForSeconds(Random.Range(1, 2));
         }
@@ -102,6 +82,15 @@ public class MessagePopup : MonoBehaviour
     private void Activate(bool active)
     {
         gameObject.SetActive(active);
-        renderer.enabled = show;
+    }
+
+    public void Stop()
+    {
+        if (randomMessagesCoroutine != null)
+        {
+            StopCoroutine(randomMessagesCoroutine);  
+        }
+
+        mySequence?.Pause();
     }
 }
