@@ -22,7 +22,9 @@ public class GameOverCondition : MonoBehaviour
         else if (atheismPercentage == 0)
         {
             faithManager.OnAtheismChanged -= OnAtheismChangedHandler;
-            PlayerPrefs.SetInt("lvl", PlayerPrefs.GetInt("lvl", 2) == 2 ? 3 : 2);
+            int asd = PlayerPrefs.GetInt("lvl", 2) == 2 ? 3 : 2;
+            PlayerPrefs.SetInt("lvl", asd);
+            LevelManager.instance.ChangeScene(asd);
         }
     }
 }
