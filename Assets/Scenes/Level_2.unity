@@ -386,7 +386,7 @@ MonoBehaviour:
   allMarkets: []
   allFarms: []
   allPaths: []
-  atheismPercentage: 0.05
+  atheismPercentage: 0.3
 --- !u!4 &19050699
 Transform:
   m_ObjectHideFlags: 0
