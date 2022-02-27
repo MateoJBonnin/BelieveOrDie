@@ -700,6 +700,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 247
+  anim: {fileID: 3995651453729330400}
   InputBlock: 0
 --- !u!1001 &8642979515195015349
 PrefabInstance:

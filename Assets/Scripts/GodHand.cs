@@ -7,6 +7,8 @@ public class GodHand : MonoBehaviour
 
     [SerializeField]
     private LayerMask groundLayerMask;
+    [SerializeField]
+    private Animator anim;
 
     private Vector3 pointInGround;
 
@@ -40,6 +42,7 @@ public class GodHand : MonoBehaviour
                 }
 
                 this.OnTap?.Invoke(hit.point, hit.normal);
+                anim.SetTrigger("Shoot");
             }
         }
     }
