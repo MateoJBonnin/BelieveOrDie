@@ -29,11 +29,11 @@ public class Menu : MonoBehaviour
 
         if (PlayerPrefs.GetInt("tuto",0) == 0)
         {
-            SceneManager.LoadScene(1);
+            LevelManager.instance.ChangeScene(1);
         }
         else
         {
-            SceneManager.LoadScene(2);
+            LevelManager.instance.ChangeScene(2);
         }
     }
 

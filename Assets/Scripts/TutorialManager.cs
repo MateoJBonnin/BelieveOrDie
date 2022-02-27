@@ -134,6 +134,11 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(4f);
             yield return new WaitUntil(() => passTutorial);
             TutorialMessage.instance.Hide();
+
+
+            PlayerPrefs.SetInt("tuto", 1);
+
+            LevelManager.instance.ChangeScene(2);
         }
 
         private void DeactivateInputs()
