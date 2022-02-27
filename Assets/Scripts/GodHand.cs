@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GodHand : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class GodHand : MonoBehaviour
 
                 this.OnTap?.Invoke(hit.point, hit.normal);
                 anim.SetTrigger("Shoot");
+                anim.SetInteger("ShootIndex", Random.Range(0, 2));
             }
         }
     }
