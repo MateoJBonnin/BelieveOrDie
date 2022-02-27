@@ -20,7 +20,7 @@ public class Options : MonoBehaviour
     public TextMeshProUGUI musicLabel;
 
     string format = "{0}%";
-    private void Start()
+    public void Setup()
     {
         masterSlider.onValueChanged.AddListener(OnMasterChange);
         sfxSlider.onValueChanged.AddListener(OnSfxChange);
@@ -60,7 +60,8 @@ public class Options : MonoBehaviour
 
     void SetVolume(string mixer, float _value)
     {
-        this.mixer.SetFloat(mixer, Mathf.Log10(_value) * 20);
+        this.mixer.SetFloat(mixer, Mathf.Log10(Mathf.Clamp(_value,0.0001f,1)) * 20);
+
         PlayerPrefs.SetFloat(mixer, _value);
     }
     

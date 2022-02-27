@@ -16,9 +16,12 @@ public class Menu : MonoBehaviour
     public GameObject menu;
     public GameObject option;
 
+    public Options options;
 
     private void Start()
     {
+        options.Setup();
+
         PlayButton.onClick.AddListener(StartGame);
         CreditsButton.onClick.AddListener(ShowCredits);
         OptionButton.onClick.AddListener(ShowOptions);
