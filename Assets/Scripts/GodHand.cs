@@ -15,15 +15,19 @@ public class GodHand : MonoBehaviour
 
     public bool InputBlock;
 
+    private Plane plane;
+
+    private void Start()
+    {
+        plane = new Plane(Vector3.up, Vector3.zero);
+    }
+
     private void PointTowardsCursor()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 1000f, this.groundLayerMask))
+        if(plane.Raycast(ray, out float enter))
         {
-            this.pointInGround = hit.point;
-            this.transform.forward = this.pointInGround - this.transform.position;
+            this.transform.forward = ray.GetPoint(enter) - this.transform.position;
         }
     }
 
