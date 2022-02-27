@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     public float dragSensitivity;
     public float zoomInDistance;
 
-    private Vector3 startPosition;
+    [SerializeField] private Vector3 startPosition;
     private Vector3 targetMovementOffset;
     private Vector3 shakeOffset;
     private Vector3 currentMovementOffset;
@@ -52,7 +52,6 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        startPosition = transform.position;
         this.startDragPosition = this.transform.position;
         this.maxDragPosition = (this.transform.forward * this.zoomInDistance) + this.startDragPosition;
         this.currentDragPosition = this.startDragPosition;
@@ -143,7 +142,7 @@ public class CameraController : MonoBehaviour
     {
         Gizmos.color = Color.green;
 
-        Gizmos.DrawWireCube(transform.position, new Vector3(xSize, ySize, zSize));
+        Gizmos.DrawWireCube(startPosition, new Vector3(xSize * 2, ySize * 2, zSize * 2));
     }
 
 
