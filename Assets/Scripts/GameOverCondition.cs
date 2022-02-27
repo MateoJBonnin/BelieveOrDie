@@ -22,6 +22,8 @@ public class GameOverCondition : MonoBehaviour
     public float atheismPercentageToLose = .8f;
     private bool passTutorial;
 
+    public float losePercentage;
+    
     private void Awake()
     {
         this.faithManager.OnAtheismChanged += this.OnAtheismChangedHandler;
@@ -29,6 +31,7 @@ public class GameOverCondition : MonoBehaviour
 
     private void OnAtheismChangedHandler(float atheismPercentage, int atheistLeft)
     {
+        losePercentage = atheismPercentage / this.atheismPercentageToLose;
         if (atheismPercentage >= this.atheismPercentageToLose)
         {
             this.faithManager.OnAtheismChanged -= this.OnAtheismChangedHandler;

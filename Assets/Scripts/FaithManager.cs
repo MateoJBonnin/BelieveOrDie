@@ -19,19 +19,27 @@ public class FaithManager : MonoBehaviour
 
     public float atheismPercentage;
     public Action<float, int> OnAtheismChanged;
+
+    public TMPro.TextMeshProUGUI atheistCountText;
+
+    public GameOverCondition gameOverCondition;
     public void Start()
     {
-        totalPob = faiths.Count;
-        foreach (Villager villager in faiths)
+        if (gameOverCondition != null)
         {
-            villager.OnDie += OnDieHandler;
-            villager.faithController.OnConvertedToAtheist += OnConvertedToAtheistHandler;
+            totalPob = faiths.Count;
+            foreach (Villager villager in faiths)
+            {
+                villager.OnDie += OnDieHandler;
+                villager.faithController.OnConvertedToAtheist += OnConvertedToAtheistHandler;
+            }
         }
     }
 
     private void OnConvertedToAtheistHandler()
     {
         atheist++;
+        atheistCountText.text = aliveAtheistCount.ToString();
         CheckFaith();
     }
 
@@ -43,13 +51,14 @@ public class FaithManager : MonoBehaviour
         FaithTextFeedback.Instance.CreateFeedbak(v.IsAtheist, Camera.main.WorldToScreenPoint(v.transform.position + Vector3.up * 2f));
     }
 
+    public int aliveAtheistCount;
     private void CheckFaith()
     {
-        var aliveAtheits = this.faiths.Count(x => x != null && !x.isDead && x.IsAtheist);
+        aliveAtheistCount = this.faiths.Count(x => x != null && !x.isDead && x.IsAtheist);
         atheismPercentage = atheist / (float) totalPob;
-        var progressBarPercentage = this.faiths.Count(x => x != null && !x.isDead && !x.IsAtheist) / (float)this.faiths.Count(x=> x != null && !x.isDead);
-        OnAtheismChanged?.Invoke(atheismPercentage, aliveAtheits);
-        slider.value = (progressBarPercentage);
+        OnAtheismChanged?.Invoke(atheismPercentage, aliveAtheistCount);
+        slider.value = 1 - gameOverCondition.losePercentage;
+        atheistCountText.text = aliveAtheistCount.ToString();
     }
 
     private void OnValidate()
