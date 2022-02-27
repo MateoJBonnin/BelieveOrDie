@@ -42028,6 +42028,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5248459991181734039, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
