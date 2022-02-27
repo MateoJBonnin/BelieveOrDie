@@ -23,7 +23,7 @@ namespace DefaultNamespace
 
         bool passTutorial;
         
-        public void Awake()
+        public void Start()
         {
             godHand = FindObjectOfType<GodHand>();
             mainCamera = Camera.main;
