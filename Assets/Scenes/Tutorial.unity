@@ -641,6 +641,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1021741640}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 4525843504746067140, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: talkTime
       value: 100
@@ -8366,7 +8370,7 @@ AudioSource:
   m_GameObject: {fileID: 424122811}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9ca0299eeea045040914b9014ee9dbe8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -11345,6 +11349,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (4)
@@ -12071,6 +12079,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (1)
@@ -12311,7 +12323,7 @@ AudioSource:
   m_GameObject: {fileID: 669429890}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 121a879199350f64cbce1ef23f025d93, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
@@ -17538,6 +17550,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1021741640}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 4525843504746067140, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: talkTime
       value: 100
@@ -37329,6 +37345,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (2)
@@ -37573,7 +37593,7 @@ AudioSource:
   m_GameObject: {fileID: 1589681082}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4d44d17d80570a84786d2d26515258c0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -38777,6 +38797,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (3)
@@ -40443,6 +40467,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (5)
@@ -45271,6 +45299,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (6)
@@ -46213,6 +46245,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 510261843}
     m_Modifications:
+    - target: {fileID: 3979413751531211685, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 54a5182b95762754d9dc704a1bd8dfa5, type: 2}
     - target: {fileID: 9222492424464210848, guid: fd2860e040c7b43459043fa45f2dd559, type: 3}
       propertyPath: m_Name
       value: Villager A (7)
