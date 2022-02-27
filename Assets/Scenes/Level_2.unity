@@ -30646,6 +30646,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faithManager: {fileID: 15630319}
+  canvasParent: {fileID: 1882330438}
+  gameWonPanelPrefab: {fileID: 3697787381648753015, guid: da5d0ec9b9fc3b34bad0e19772c30eb1, type: 3}
+  gameLostPanelPrefab: {fileID: 3681140231476604524, guid: d4a3ef5da4545a04bb42822dcbe9ee29, type: 3}
+  cameraController: {fileID: 331784414}
+  godHand: {fileID: 1630862734}
   atheismPercentageToLose: 0.8
 --- !u!4 &1249142831
 Transform:
@@ -42137,6 +42142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1882330438 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5248459991318379668, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
+  m_PrefabInstance: {fileID: 1882330436}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1883075234
 PrefabInstance:
   m_ObjectHideFlags: 0

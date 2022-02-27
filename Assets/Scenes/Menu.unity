@@ -2099,7 +2099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 120, y: -96}
+  m_AnchoredPosition: {x: 120, y: -141}
   m_SizeDelta: {x: -610.8855, y: 119.5287}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514103219
@@ -2149,11 +2149,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 78.9
+  m_fontSize: 55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 55
   m_fontSizeMax: 415.6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -7408,6 +7408,7 @@ MonoBehaviour:
   exitGameButton: {fileID: 228901940}
   exitNo: {fileID: 471922915}
   exitYes: {fileID: 1512016928}
+  title: {fileID: 514103219}
   credits: {fileID: 2854298}
   menu: {fileID: 664589989}
   option: {fileID: 1788763748}

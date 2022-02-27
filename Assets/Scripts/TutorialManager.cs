@@ -120,7 +120,7 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
 
-            TutorialMessage.instance.ShowMessage("Now we have to go to the other city, I have been comunicated that there are people there that does not believe in you");
+            TutorialMessage.instance.ShowMessage("Now we have to go to the other town, I have been comunicated that there are people there that does not believe in you");
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
 

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -16,6 +18,7 @@ public class Menu : MonoBehaviour
     public Button exitNo;
     public Button exitYes;
 
+    public TMP_Text title;
     public GameObject credits;
     public GameObject menu;
     public GameObject option;
@@ -23,6 +26,11 @@ public class Menu : MonoBehaviour
     public GameObject exitView;
 
     public Options options;
+
+    private void Awake()
+    {
+        CheckSetupThanksForPlaying();
+    }
 
     private void Start()
     {
@@ -40,6 +48,8 @@ public class Menu : MonoBehaviour
 
     public void StartGame()
     {
+        PlayerPrefs.SetInt("Won", 0);
+
         PlayButton.onClick.RemoveAllListeners();
         CreditsButton.onClick.RemoveAllListeners();
         OptionButton.onClick.RemoveAllListeners();
@@ -53,6 +63,14 @@ public class Menu : MonoBehaviour
         else
         {
             LevelManager.instance.ChangeScene(PlayerPrefs.GetInt("lvl", 2));
+        }
+    }
+
+    public void CheckSetupThanksForPlaying()
+    {
+        if (PlayerPrefs.GetInt("Won",0) == 1)
+        {
+            this.title.text = "Thanks for playing our game!";
         }
     }
 
