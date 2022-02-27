@@ -11,12 +11,14 @@ public class WindSfxController : MonoBehaviour
     {
         mainCam = Camera.main.GetComponent<CameraController>();
         windSfx = GetComponent<AudioSource>();
+
+        mainCam.OnMove += OnCameraMove;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCameraMove(Vector3 move)
     {
-        Debug.Log( mainCam.ZoomPercent - 1);
-        windSfx.volume = mainCam.ZoomPercent - 1f;
+        windSfx.pitch = move.magnitude.Remap(0, 40, 1, 1.5f);
+        windSfx.volume = move.magnitude.Remap(0, 40, 0.03f, 0.08f);
+        windSfx.volume += (mainCam.ZoomPercent - 1f).Remap(0, 1, 0.05f, 0.09f);
     }
 }

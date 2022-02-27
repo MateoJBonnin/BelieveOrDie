@@ -17,7 +17,6 @@ public class CameraController : MonoBehaviour
     private Vector3 currentMovementOffset;
     private Vector3 currentTargetDragPosition;
     private Vector3 currentDragPosition;
-    private Vector3 currentDiffDragPosition;
     private Vector3 startDragPosition;
     private Vector3 maxDragPosition;
     Vector3 lastMousePosition;
@@ -26,7 +25,6 @@ public class CameraController : MonoBehaviour
     public bool canZoom = true;
     public bool canDrag = true;
     public bool canMove = true;
-
 
     public static bool CanShowMessages;
 
@@ -38,7 +36,15 @@ public class CameraController : MonoBehaviour
     public Action<Vector3> OnMove;
     public Action<Vector3> OnDrag;
     public Action<float>OnZoom;
-    
+
+    public float ZoomPercent
+    {
+        get
+        {
+            return this.currentTargetDragPosition.magnitude / this.maxDragPosition.magnitude;
+        }
+    }
+
     private void Start()
     {
         startPosition = transform.position;
@@ -82,6 +88,8 @@ public class CameraController : MonoBehaviour
         this.currentMovementOffset = Vector3.Lerp(this.currentMovementOffset, this.targetMovementOffset * sensitivity, Time.deltaTime * 15f);
         Vector3 movementDiff = (currentDragPosition + this.currentMovementOffset) - this.transform.position;
         transform.position = Vector3.Lerp(transform.position, transform.position + movementDiff, Time.deltaTime * 5f);
+
+        OnMove?.Invoke(movementDiff);
 
         if (transform.position.x >= startPosition.x + xSize)
         {
@@ -138,11 +146,5 @@ public class CameraController : MonoBehaviour
         canZoom = active;
     }
 
-    public float ZoomPercent 
-    {
-        get 
-        {
-            return this.currentTargetDragPosition.magnitude / this.maxDragPosition.magnitude;
-        }
-    }
+    
 }
