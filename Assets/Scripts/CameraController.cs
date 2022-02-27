@@ -137,4 +137,12 @@ public class CameraController : MonoBehaviour
     {
         canZoom = active;
     }
+
+    public float ZoomPercent 
+    {
+        get 
+        {
+            return this.currentTargetDragPosition.magnitude / this.maxDragPosition.magnitude;
+        }
+    }
 }

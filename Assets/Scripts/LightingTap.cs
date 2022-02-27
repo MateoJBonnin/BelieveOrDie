@@ -12,6 +12,8 @@ public class LightingTap : MonoBehaviour
     private GodHand godHand;
     [SerializeField]
     private float cooldown;
+    [SerializeField]
+    private AudioSource thunderSfx;
 
     private float nextAvailableTime;
 
@@ -26,6 +28,9 @@ public class LightingTap : MonoBehaviour
         {
             this.SummonLighting(position, normal);
             this.nextAvailableTime = Time.time + this.cooldown;
+
+            thunderSfx.pitch = Random.Range(0.5f, 1.5f);
+            thunderSfx.Play();
         }
     }
 

@@ -34,6 +34,8 @@ public class Villager : MonoBehaviour
 
     public bool isDead;
 
+    [SerializeField] private AudioSource screamSfx = null;
+
     public void Setup(ActionTasks bt)
     {
         startPos = transform.position;
@@ -68,6 +70,9 @@ public class Villager : MonoBehaviour
         mySequence.PrependInterval(2);
         mySequence.Append(transform.DOScale(Vector3.zero, 1));
         mySequence.OnComplete(() => Destroy(gameObject));
+
+        screamSfx.pitch = Random.Range(0.8f, 1.2f);
+        screamSfx.Play();
     }
 
     public void RestartBaseTasks()
