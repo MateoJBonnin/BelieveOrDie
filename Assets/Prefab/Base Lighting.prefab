@@ -14705,7 +14705,7 @@ PrefabInstance:
     - target: {fileID: 7086224825383632524, guid: de6ded5289defbe49b494d3509bb3874, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -2605931710798131250, guid: 8c8a67fbf445671479cab8f5a9b2f5ec, type: 3}
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 7086224825383632525, guid: de6ded5289defbe49b494d3509bb3874, type: 3}
       propertyPath: playOnAwake
       value: 1
