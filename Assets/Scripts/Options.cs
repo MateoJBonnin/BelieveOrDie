@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,18 @@ public class Options : MonoBehaviour
     public TextMeshProUGUI musicLabel;
 
     string format = "{0}%";
+
+
+    public bool setupOnStart;
+
+    private void Start()
+    {
+        if (setupOnStart)
+        {
+            Setup();
+        }
+    }
+
     public void Setup()
     {
         masterSlider.onValueChanged.AddListener(OnMasterChange);
