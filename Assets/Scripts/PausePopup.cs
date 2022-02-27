@@ -10,6 +10,8 @@ public class PausePopup : MonoBehaviour
 
     private bool paused;
     private GodHand godHand;
+
+    public GameObject atheistNumber;
     
     private void Start()
     {
@@ -39,6 +41,7 @@ public class PausePopup : MonoBehaviour
     {
         godHand.InputBlock = true;
         view.transform.DOScale(Vector3.one, .25f);
+        atheistNumber.SetActive(false);
     }
 
     public void Close()
@@ -46,6 +49,7 @@ public class PausePopup : MonoBehaviour
         paused = false;
         godHand.InputBlock = false;
         view.transform.DOScale(Vector3.zero, .25f);
+        atheistNumber.SetActive(true);
     }
 
     private void GoToMainMenu()

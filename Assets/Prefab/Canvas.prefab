@@ -899,6 +899,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause
       objectReference: {fileID: 0}
+    - target: {fileID: 4397351909441740871, guid: c7aaad574605e7e41a91b3c868353603, type: 3}
+      propertyPath: atheistNumber
+      value: 
+      objectReference: {fileID: 371835452}
     - target: {fileID: 5150645089970552475, guid: c7aaad574605e7e41a91b3c868353603, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1011,6 +1015,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22f4ba340506a7c469cd27f70a2446a3, type: 3}
+--- !u!1 &371835452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2911664391862010929, guid: 22f4ba340506a7c469cd27f70a2446a3, type: 3}
+  m_PrefabInstance: {fileID: 2911664391495550477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &371835453 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2911664391862010928, guid: 22f4ba340506a7c469cd27f70a2446a3, type: 3}
