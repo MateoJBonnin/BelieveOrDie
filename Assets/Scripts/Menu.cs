@@ -33,7 +33,7 @@ public class Menu : MonoBehaviour
         }
         else
         {
-            LevelManager.instance.ChangeScene(2);
+            LevelManager.instance.ChangeScene(PlayerPrefs.GetInt("lvl", 2));
         }
     }
 

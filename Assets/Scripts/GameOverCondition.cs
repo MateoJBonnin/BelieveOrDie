@@ -14,16 +14,15 @@ public class GameOverCondition : MonoBehaviour
 
     private void OnAtheismChangedHandler(float atheismPercentage)
     {
-
         if (atheismPercentage >= atheismPercentageToLose)
         {
             faithManager.OnAtheismChanged -= OnAtheismChangedHandler;
-            Debug.LogError("You Lose!");
+            LevelManager.instance.ChangeScene(0);
         }
         else if (atheismPercentage == 0)
         {
             faithManager.OnAtheismChanged -= OnAtheismChangedHandler;
-            Debug.LogError("You Win!");
+            PlayerPrefs.SetInt("lvl", PlayerPrefs.GetInt("lvl", 2) == 2 ? 3 : 2);
         }
     }
 }
