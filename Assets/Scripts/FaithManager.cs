@@ -33,6 +33,8 @@ public class FaithManager : MonoBehaviour
                 villager.OnDie += OnDieHandler;
                 villager.faithController.OnConvertedToAtheist += OnConvertedToAtheistHandler;
             }
+            atheistCountText.text = this.faiths.Count(x => x != null && !x.isDead && x.IsAtheist).ToString();
+
         }
     }
 
