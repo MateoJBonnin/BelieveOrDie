@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 5248459991318379667}
   - component: {fileID: 5248459991318379666}
   - component: {fileID: 5248459991318379665}
+  - component: {fileID: 8813050140366562622}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -664,7 +665,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -687,6 +688,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8813050140366562622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5248459991318379664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9057161614e25b84b8bbf43026428f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FaithAdd: {fileID: 241858714849211225, guid: 7a88fd3226f26434a99939d0f8ccd917, type: 3}
+  FaithSub: {fileID: 7650710669705682656, guid: 7f1c887ae324b4346b29044ed4c3ca8f, type: 3}
 --- !u!1 &7595992234070429616
 GameObject:
   m_ObjectHideFlags: 0
