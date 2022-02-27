@@ -65,6 +65,7 @@ public class RoleManager : MonoBehaviour
             baseTasks.AddAction(new WaitAction(vill, 5));
             baseTasks.AddAction(new WanderAction(vill, Random.Range(3, 5), 10, Random.Range(1, 5)));
             baseTasks.AddAction(new PathWalking(vill, allPaths[Random.Range(0, allPaths.Length)], Random.Range(5,20)));
+            baseTasks.AddAction(new GoToVillagerAction(vill, allVillager));
 
 
             vill.Setup(baseTasks);

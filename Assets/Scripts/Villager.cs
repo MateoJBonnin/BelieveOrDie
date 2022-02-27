@@ -464,5 +464,49 @@ public class PathWalking : Actions
                 vill.agent.SetDestination(toPosition);
             }
         }
+    } 
+}
+
+public class GoToVillagerAction : Actions 
+{
+    private Villager[] villagers;
+    private Villager villagerToFollow;
+    private Villager villager;
+
+    public GoToVillagerAction(Villager villager, Villager[] villagers) 
+    {
+        this.villagers = villagers;
+        this.villager = villager;
+    }
+
+    public override void Execute()
+    {
+        villager.agent.isStopped = false;
+        float dist = float.MaxValue;
+        for (int i = 0; i < villagers.Length; i++)
+        {
+            if (villagers[i] == villager)
+                continue;
+
+            if (villagers[i] != null && !villagers[i].isDead && (villagers[i].transform.position - villager.transform.position).sqrMagnitude < dist) 
+            {
+                villagerToFollow = villagers[i];
+            }
+        }
+
+        villager.agent.SetDestination(villagerToFollow.transform.position);
+    }
+
+    public override void Stop()
+    {
+        villager.agent.isStopped = true;
+    }
+
+    public override void Update()
+    {
+        if (Vector3.SqrMagnitude(villager.transform.position - villager.agent.destination) <= .5f) 
+        {
+            OnComplete?.Invoke();
+        }
     }
 }
