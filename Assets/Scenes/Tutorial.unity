@@ -7274,7 +7274,7 @@ MonoBehaviour:
   xSize: 25
   zSize: 100
   ySize: 50
-  sensitivity: 0.5
+  sensitivity: 0.25
   scrollSensitivity: 15
   dragSensitivity: 0.3
   zoomInDistance: 125

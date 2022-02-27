@@ -6579,7 +6579,7 @@ MonoBehaviour:
   xSize: 75
   zSize: 75
   ySize: 150
-  sensitivity: 0.5
+  sensitivity: 0.25
   scrollSensitivity: 15
   dragSensitivity: 0.3
   zoomInDistance: 125
