@@ -8,24 +8,31 @@ public class Menu : MonoBehaviour
 {
     public Button PlayButton;
     public Button CreditsButton;
-    public Button backButton;
+    public Button OptionButton;
+    public Button backCreditsButton;
+    public Button backOptionsButton;
 
     public GameObject credits;
     public GameObject menu;
+    public GameObject option;
 
 
     private void Start()
     {
         PlayButton.onClick.AddListener(StartGame);
         CreditsButton.onClick.AddListener(ShowCredits);
-        backButton.onClick.AddListener(ShowCredits);
+        OptionButton.onClick.AddListener(ShowOptions);
+        backCreditsButton.onClick.AddListener(ShowMenu);
+        backOptionsButton.onClick.AddListener(ShowMenu);
     }
 
     public void StartGame()
     {
         PlayButton.onClick.RemoveAllListeners();
         CreditsButton.onClick.RemoveAllListeners();
-        backButton.onClick.RemoveAllListeners();
+        OptionButton.onClick.RemoveAllListeners();
+        backCreditsButton.onClick.RemoveAllListeners();
+        backOptionsButton.onClick.RemoveAllListeners();
 
         if (PlayerPrefs.GetInt("tuto",0) == 0)
         {
@@ -37,9 +44,24 @@ public class Menu : MonoBehaviour
         }
     }
 
+    public void ShowMenu()
+    {
+        credits.gameObject.SetActive(false);
+        option.gameObject.SetActive(false);
+        menu.gameObject.SetActive(true);
+    }
+
+    public void ShowOptions()
+    {
+        credits.gameObject.SetActive(false);
+        menu.gameObject.SetActive(false);
+        option.gameObject.SetActive(true);
+    }
+
     public void ShowCredits()
     {
-        credits.gameObject.SetActive(!credits.activeInHierarchy);
-        menu.gameObject.SetActive(!menu.activeInHierarchy);
+        option.gameObject.SetActive(false);
+        menu.gameObject.SetActive(false);
+        credits.gameObject.SetActive(true);
     }
 }
