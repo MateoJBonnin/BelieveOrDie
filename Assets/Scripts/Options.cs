@@ -60,7 +60,8 @@ public class Options : MonoBehaviour
 
     void SetVolume(string mixer, float _value)
     {
-        this.mixer.SetFloat(mixer, Mathf.Log10(_value) * 20);
+        this.mixer.SetFloat(mixer, Mathf.Clamp(_value, 0.0001f, 1f).Remap(0.0001f, 1, -80, 0));
+
         PlayerPrefs.SetFloat(mixer, _value);
     }
     
