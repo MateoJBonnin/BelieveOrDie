@@ -23,7 +23,7 @@ namespace DefaultNamespace
 
         bool passTutorial;
         
-        public void Awake()
+        public void Start()
         {
             godHand = FindObjectOfType<GodHand>();
             mainCamera = Camera.main;
@@ -106,7 +106,7 @@ namespace DefaultNamespace
 
 
 
-            TutorialMessage.instance.ShowMessage("Oh no! is too late now, we have to erase both now");
+            TutorialMessage.instance.ShowMessage("Oh no! It is too late now, we have to erase both now");
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
 
