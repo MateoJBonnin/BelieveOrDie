@@ -46,24 +46,22 @@ namespace DefaultNamespace
 
             TutorialMessage.instance.ShowMessage("Welcome to this world my lord");
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
             yield return new WaitUntil(() => passTutorial);
             
-            TutorialMessage.instance.Hide();
             TutorialMessage.instance.ShowMessage("You are here because of the people who believe in you");
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
             yield return new WaitUntil(() => passTutorial);
 
-            TutorialMessage.instance.Hide();
             TutorialMessage.instance.ShowMessage("But you have to be aware of those who don't");
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
             yield return new WaitUntil(() => passTutorial);
 
             TutorialMessage.instance.ShowMessage("You can move with W A S D or pressing and dragging the scroll wheel");
-            yield return new WaitForSeconds(5f);
-            TutorialMessage.instance.Hide();
+            yield return new WaitForSeconds(3f);
+            yield return new WaitUntil(() => passTutorial);
 
             TutorialMessage.instance.ShowMessage("Go to the nearest town in the north");
             cameraController.SetMovementActivate(true);
@@ -100,9 +98,8 @@ namespace DefaultNamespace
             atheist.talk.StopTalking();
             
             TutorialMessage.instance.ShowMessage("Look my lord!, That person is trying to convince the other one to stop believing in you!");
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
-            TutorialMessage.instance.Hide();
 
             TalkingManager.StartConversation(atheist.talk, christian.talk, atheist.talk.talkTime);
             yield return new WaitForSeconds(2f);
@@ -110,9 +107,8 @@ namespace DefaultNamespace
 
 
             TutorialMessage.instance.ShowMessage("Oh no! is too late now, we have to erase both now");
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
-            TutorialMessage.instance.Hide();
 
             TutorialMessage.instance.ShowMessage("Use your thunder power to stop these people from spreading the word");
             godHand.InputBlock = false;
@@ -121,19 +117,16 @@ namespace DefaultNamespace
             godHand.InputBlock = true;
 
             TutorialMessage.instance.ShowMessage("Good job my lord you have cleaned the land from non-believers");
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
-            TutorialMessage.instance.Hide();
 
             TutorialMessage.instance.ShowMessage("Now we have to go to the other city, I have been comunicated that there are people there that does not believe in you");
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
-            TutorialMessage.instance.Hide();
 
             TutorialMessage.instance.ShowMessage("But take care, if the town reach a high percentage of non-believers you will stop being REAL");
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => passTutorial);
-            TutorialMessage.instance.Hide();
 
 
             PlayerPrefs.SetInt("tuto", 1);

@@ -39,7 +39,7 @@ namespace DefaultNamespace
 
         private IEnumerator TextCoroutine(string textToShow)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.6f);
             for (int i = 0; i < textToShow.Length; i++)
             {
                 instance.text.text += textToShow[i];
