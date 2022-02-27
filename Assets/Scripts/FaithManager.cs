@@ -41,6 +41,7 @@ public class FaithManager : MonoBehaviour
             atheist--;
         totalPob--;
         CheckFaith();
+        FaithTextFeedback.Instance.CreateFeedbak(v.IsAtheist, Camera.main.WorldToScreenPoint(v.transform.position + Vector3.up * 2f));
     }
 
     private void CheckFaith()
