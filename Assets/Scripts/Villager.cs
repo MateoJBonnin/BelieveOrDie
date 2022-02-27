@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -35,6 +36,9 @@ public class Villager : MonoBehaviour
     public bool isDead;
 
     [SerializeField] private AudioSource screamSfx = null;
+    [SerializeField] private MeshRenderer meshRenderer = null;
+    [SerializeField] private ParticleSystem electricityParticle = null;
+    [SerializeField] private ParticleSystem smokeParticle = null;
 
     public void Setup(ActionTasks bt)
     {
@@ -57,7 +61,6 @@ public class Villager : MonoBehaviour
         if (faithController)
         {
             faithController.SpreadActive(false);
-            rigidBody.constraints = RigidbodyConstraints.None;
             talk.Deactivate();
         }
 
@@ -65,14 +68,41 @@ public class Villager : MonoBehaviour
         OnDie?.Invoke(this);
         Destroy(agent);
         isDead = true;
-        
+
+        StartCoroutine(DieSequence());
+    }
+
+    IEnumerator DieSequence()
+    {
+        screamSfx.pitch = Random.Range(0.8f, 1.2f);
+        screamSfx.Play();
+
+        Material mat = meshRenderer.material;
+        mat.color = Color.black;
+        mat.SetFloat("_JumpSpeed", 3000f);
+        mat.SetFloat("_JumpHeight", 1f);
+        meshRenderer.material = mat;
+
+        electricityParticle.Play();
+
+        yield return new WaitForSeconds(Random.Range(0.3f, 0.5f));
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(2);
         mySequence.Append(transform.DOScale(Vector3.zero, 1));
         mySequence.OnComplete(() => Destroy(gameObject));
+        
+        mat.SetFloat("_JumpSpeed", 0f);
+        mat.SetFloat("_JumpHeight", 0f);
 
-        screamSfx.pitch = Random.Range(0.8f, 1.2f);
-        screamSfx.Play();
+        Vector2 randomCircle = Random.insideUnitCircle;
+        Vector3 force = new Vector3(randomCircle.x, 0, randomCircle.y) * 7f;
+        force.y = Random.Range(10f, 15f);
+        rigidBody.isKinematic = false;
+        rigidBody.constraints = RigidbodyConstraints.None;
+        rigidBody.AddForce(force, ForceMode.VelocityChange);
+        rigidBody.AddTorque(Random.insideUnitSphere * 300f, ForceMode.VelocityChange);
+        smokeParticle.Play();
     }
 
     public void RestartBaseTasks()
