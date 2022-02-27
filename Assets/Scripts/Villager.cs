@@ -116,9 +116,14 @@ public class Villager : MonoBehaviour
     {
         if (isDead) return;
 
-        toDoTasks.Peek().Stop();
-        toDoTasks.Push(newTasks);
-        toDoTasks.Peek().StartActivities();
+
+        if (this.toDoTasks.Count > 0)
+        {
+            toDoTasks.Peek().Stop();
+            toDoTasks.Push(newTasks);
+            toDoTasks.Peek().StartActivities();
+        }
+
         newTasks.OnEndAllTasks += ResumeBase;
     }
 
