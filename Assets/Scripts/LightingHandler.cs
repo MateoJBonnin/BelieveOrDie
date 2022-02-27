@@ -27,15 +27,7 @@ public class LightingHandler : MonoBehaviour
                 continue;
             }
 
-            Rigidbody villRb = collider.attachedRigidbody ;
-            if (villRb == null)
-            {
-                villRb = villager.AddComponent<Rigidbody>();
-            }
-
-            villRb.isKinematic = false;
             villager.Die();
-            villRb.AddExplosionForce(this.explosionForce, this.transform.position, this.radius, 2f);
         }
     }
 }
