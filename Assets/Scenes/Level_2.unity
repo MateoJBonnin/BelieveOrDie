@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17777357, g: 0.22257507, b: 0.30473307, a: 1}
+  m_IndirectSpecularColor: {r: 0.17777386, g: 0.22257543, b: 0.30473384, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42028,30 +42028,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_Colors.m_DisabledColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_Colors.m_DisabledColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_Colors.m_DisabledColor.g
-      value: 0.96862745
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248459990219645773, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_Colors.m_DisabledColor.r
-      value: 0.3254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 5248459990219645774, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5248459991181734039, guid: 751b14a4f0ebfde4eb702e60a7bf6702, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
