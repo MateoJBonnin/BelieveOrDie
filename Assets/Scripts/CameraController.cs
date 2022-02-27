@@ -1,4 +1,8 @@
 using System;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Core.Enums;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -14,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 startPosition;
     private Vector3 targetMovementOffset;
+    private Vector3 shakeOffset;
     private Vector3 currentMovementOffset;
     private Vector3 currentTargetDragPosition;
     private Vector3 currentDragPosition;
@@ -29,10 +34,10 @@ public class CameraController : MonoBehaviour
     public static bool CanShowMessages;
 
     public float showMessagesYDistance = 25;
-    
+
     public float movementAccumulated;
     public float dragAccumulated;
-    
+
     public Action<Vector3> OnMove;
     public Action<Vector3> OnDrag;
     public Action<float>OnZoom;
@@ -53,10 +58,21 @@ public class CameraController : MonoBehaviour
         this.currentDragPosition = this.startDragPosition;
     }
 
+    public void DoShake(float duration,
+        Vector3 strength,
+        int vibrato = 10,
+        float randomness = 90f)
+    {
+        shakeOffset = Vector3.zero;
+        DOTween.Shake((DOGetter<Vector3>) (() =>  this.shakeOffset
+        ), (DOSetter<Vector3>) (x =>  this.shakeOffset = x),
+         duration, strength, vibrato, randomness, true).SetTarget<TweenerCore<Vector3, Vector3[], Vector3ArrayOptions>>((object) shakeOffset).SetSpecialStartupMode<TweenerCore<Vector3, Vector3[], Vector3ArrayOptions>>(SpecialStartupMode.SetShake);
+    }
+
     private void Update()
     {
         CanShowMessages = transform.position.y < showMessagesYDistance;
-        
+
         if (Input.GetKey(KeyCode.Mouse2))
         {
             if (canDrag)
@@ -79,7 +95,7 @@ public class CameraController : MonoBehaviour
             if (canZoom)
             {
                 this.currentScrollZoom += Input.mouseScrollDelta.y * this.scrollSensitivity * Time.deltaTime;
-                this.currentScrollZoom = Mathf.Clamp01(this.currentScrollZoom);    
+                this.currentScrollZoom = Mathf.Clamp01(this.currentScrollZoom);
             }
         }
 
@@ -87,7 +103,7 @@ public class CameraController : MonoBehaviour
         this.currentDragPosition = Vector3.Lerp(this.currentDragPosition, this.currentTargetDragPosition, Time.deltaTime * 20f);
         this.currentMovementOffset = Vector3.Lerp(this.currentMovementOffset, this.targetMovementOffset * sensitivity, Time.deltaTime * 15f);
         Vector3 movementDiff = (currentDragPosition + this.currentMovementOffset) - this.transform.position;
-        transform.position = Vector3.Lerp(transform.position, transform.position + movementDiff, Time.deltaTime * 5f);
+        transform.position = Vector3.Lerp(transform.position, transform.position + movementDiff, Time.deltaTime * 5f) + (shakeOffset / Mathf.Max(this.currentScrollZoom * 5f,0.1f));
 
         OnMove?.Invoke(movementDiff);
 
@@ -129,13 +145,13 @@ public class CameraController : MonoBehaviour
 
         Gizmos.DrawWireCube(transform.position, new Vector3(xSize, ySize, zSize));
     }
-    
-    
+
+
     public void SetMovementActivate(bool active)
     {
         canMove = active;
     }
-        
+
     public void SetDragActivate(bool active)
     {
         canDrag = active;
@@ -146,5 +162,5 @@ public class CameraController : MonoBehaviour
         canZoom = active;
     }
 
-    
+
 }

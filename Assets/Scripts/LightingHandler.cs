@@ -19,7 +19,8 @@ public class LightingHandler : MonoBehaviour
     public void CreateExplosionZone()
     {
         Collider[] sphereCastColliders = Physics.OverlapSphere(this.transform.position, this.radius,1<< LayerMask.NameToLayer("Villager"));
-        Camera.main.DOShakePosition(shakeDuration, Random.insideUnitSphere * UnityEngine.Random.Range(.3f,.6f),20,180);
+        Camera.main.GetComponent<CameraController>().DoShake(shakeDuration,Random.insideUnitSphere * UnityEngine.Random.Range(.3f,.6f),20,180);
+
         foreach (Collider collider in sphereCastColliders)
         {
             Villager villager = collider.GetComponentInParent<Villager>();
