@@ -65,9 +65,9 @@ public class Villager : MonoBehaviour
         }
 
         colliders.ForEach(c=> c.enabled = false);
+        isDead = true;
         OnDie?.Invoke(this);
         Destroy(agent);
-        isDead = true;
 
         StartCoroutine(DieSequence());
     }

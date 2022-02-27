@@ -27,7 +27,7 @@ public class GameOverCondition : MonoBehaviour
         this.faithManager.OnAtheismChanged += this.OnAtheismChangedHandler;
     }
 
-    private void OnAtheismChangedHandler(float atheismPercentage)
+    private void OnAtheismChangedHandler(float atheismPercentage, int atheistLeft)
     {
         if (atheismPercentage >= this.atheismPercentageToLose)
         {
@@ -35,7 +35,7 @@ public class GameOverCondition : MonoBehaviour
             this.DeactivateInputs();
             this.StartCoroutine(this.StartLoseEndgameMessages());
         }
-        else if (atheismPercentage == 0)
+        else if (atheistLeft == 0)
         {
             this.faithManager.OnAtheismChanged -= this.OnAtheismChangedHandler;
             this.DeactivateInputs();

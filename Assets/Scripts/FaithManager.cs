@@ -18,7 +18,7 @@ public class FaithManager : MonoBehaviour
     public int atheist;
 
     public float atheismPercentage;
-    public Action<float> OnAtheismChanged;
+    public Action<float, int> OnAtheismChanged;
     public void Start()
     {
         totalPob = faiths.Count;
@@ -37,20 +37,20 @@ public class FaithManager : MonoBehaviour
 
     private void OnDieHandler(Villager v)
     {
-        if (v.IsAtheist)
-            atheist--;
-        totalPob--;
+        if(!v.IsAtheist)
+            atheist++;
         CheckFaith();
         FaithTextFeedback.Instance.CreateFeedbak(v.IsAtheist, Camera.main.WorldToScreenPoint(v.transform.position + Vector3.up * 2f));
     }
 
     private void CheckFaith()
     {
+        var aliveAtheits = this.faiths.Count(x => x != null && !x.isDead && x.IsAtheist);
         atheismPercentage = atheist / (float) totalPob;
-        OnAtheismChanged?.Invoke(atheismPercentage);
-        slider.value = (1 - atheismPercentage);
+        var progressBarPercentage = this.faiths.Count(x => x != null && !x.isDead && !x.IsAtheist) / (float)this.faiths.Count(x=> x != null && !x.isDead);
+        OnAtheismChanged?.Invoke(atheismPercentage, aliveAtheits);
+        slider.value = (progressBarPercentage);
     }
-
 
     private void OnValidate()
     {
