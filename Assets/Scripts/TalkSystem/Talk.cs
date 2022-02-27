@@ -5,6 +5,8 @@ namespace TalkSystem
 {
     public class Talk : MonoBehaviour
     {
+        [SerializeField] private AudioSource talkingSound;
+
         public Villager villager;
         public float talkTime = 5;
         public float talkProbability = .2f;
@@ -36,6 +38,8 @@ namespace TalkSystem
             talkAction.OnComplete += StopTalking;
             actionsTasks.AddAction(talkAction);
             villager.OverrideTasks(actionsTasks);
+            talkingSound.pitch = Random.Range(0.5f, 2f);
+            talkingSound.Play();
             messagePopup.ShowMessage(villager.rol == Roles.Atheist, time);
             if (spreadFaith)
             {
@@ -48,6 +52,7 @@ namespace TalkSystem
             other = null;
             this.spreadFaith.Active(false);
             messagePopup.Stop();
+            talkingSound.Stop();
         }
 
         private void Update()
