@@ -6,15 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public AudioSource buttonSound;
     public Button PlayButton;
     public Button CreditsButton;
     public Button OptionButton;
     public Button backCreditsButton;
     public Button backOptionsButton;
+    public Button exitGameButton;
+    public Button exitNo;
+    public Button exitYes;
 
     public GameObject credits;
     public GameObject menu;
     public GameObject option;
+
+    public GameObject exitView;
 
     public Options options;
 
@@ -27,6 +33,9 @@ public class Menu : MonoBehaviour
         OptionButton.onClick.AddListener(ShowOptions);
         backCreditsButton.onClick.AddListener(ShowMenu);
         backOptionsButton.onClick.AddListener(ShowMenu);
+        exitNo.onClick.AddListener(ShowMenu);
+        exitGameButton.onClick.AddListener(ShowAreYouSure);
+        exitYes.onClick.AddListener(() => Application.Quit());
     }
 
     public void StartGame()
@@ -49,22 +58,41 @@ public class Menu : MonoBehaviour
 
     public void ShowMenu()
     {
-        credits.gameObject.SetActive(false);
-        option.gameObject.SetActive(false);
-        menu.gameObject.SetActive(true);
+        exitView.SetActive(false);
+        credits.SetActive(false);
+        option.SetActive(false);
+        menu.SetActive(true);
+
+        buttonSound.Play();
     }
 
     public void ShowOptions()
     {
-        credits.gameObject.SetActive(false);
-        menu.gameObject.SetActive(false);
-        option.gameObject.SetActive(true);
+        exitView.SetActive(false);
+        credits.SetActive(false);
+        menu.SetActive(false);
+        option.SetActive(true);
+
+        buttonSound.Play();
     }
 
     public void ShowCredits()
     {
+        exitView.SetActive(false);
+        option.SetActive(false);
+        menu.SetActive(false);
+        credits.SetActive(true);
+
+        buttonSound.Play();
+    }
+
+    public void ShowAreYouSure()
+    {
+        exitView.SetActive(true);
         option.gameObject.SetActive(false);
         menu.gameObject.SetActive(false);
-        credits.gameObject.SetActive(true);
+        credits.gameObject.SetActive(false);
+
+        buttonSound.Play();
     }
 }
