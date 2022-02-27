@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 4
   explosionForce: 750
+  shakeDuration: 0.2
+  shakeStrength: 0.35
 --- !u!114 &-7060895086383949057
 MonoBehaviour:
   m_ObjectHideFlags: 0
