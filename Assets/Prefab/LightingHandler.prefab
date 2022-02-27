@@ -45,10 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85704ea52fcff2458aea1aa0b95c4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
+  radius: 2.7
   explosionForce: 750
   shakeDuration: 0.2
-  shakeStrength: 0.35
 --- !u!114 &-7060895086383949057
 MonoBehaviour:
   m_ObjectHideFlags: 0
